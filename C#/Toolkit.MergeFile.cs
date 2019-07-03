@@ -1,5 +1,6 @@
 
 using System;
+using System.Text;
 
 namespace ToolkitExamples
 {
@@ -10,44 +11,52 @@ namespace ToolkitExamples
             string strPath = System.AppDomain.CurrentDomain.BaseDirectory;
 
             // Instantiate Object
-            using (APToolkitNET.Toolkit oTK = new APToolkitNET.Toolkit())
+            using (APToolkitNET.Toolkit toolkit = new APToolkitNET.Toolkit())
             {
                 // Here you can place any code that will alter the output file
                 // Such as adding security, setting page dimensions, etc.
 
                 // Create the new PDF file
-                int result = oTK.OpenOutputFile($"{strPath}Toolkit.MergeFile.pdf");
+                int result = toolkit.OpenOutputFile($"{strPath}Toolkit.MergeFile.pdf");
                 if (result != 0)
                 {
-                    WriteResult($"Error opening output file: {result.ToString()}");
+                    WriteResult($"Error opening output file: {result.ToString()}", toolkit);
                     return;
                 }
 
                 // Merge the input file
-                result = oTK.MergeFile($"{strPath}input.pdf", 0, 0);
+                result = toolkit.MergeFile($"{strPath}Toolkit.Input.pdf", 0, 0);
                 if (result != 1)
                 {
-                    WriteResult($"Error merging first input file: {result.ToString()}");
+                    WriteResult($"Error merging first input file: {result.ToString()}", toolkit);
                 }
 
                 // Merge the input file
-                result = oTK.MergeFile($"{strPath}input.pdf", 0, 0);
+                result = toolkit.MergeFile($"{strPath}Toolkit.Input.pdf", 0, 0);
                 if (result != 1)
                 {
-                    WriteResult($"Error merging second input file: {result.ToString()}");
+                    WriteResult($"Error merging second input file: {result.ToString()}", toolkit);
                 }
 
                 // Close the new file to complete PDF creation
-                oTK.CloseOutputFile();
+                toolkit.CloseOutputFile();
             }
 
             // Process Complete
             WriteResult("Success!");
         }
 
-        public static void WriteResult(string result)
+        public static void WriteResult(string result, APToolkitNET.Toolkit toolkit = null)
         {
-            Console.WriteLine(result);
+            StringBuilder resultText = new StringBuilder();
+            resultText.AppendLine(result);
+            if (toolkit != null)
+            {
+                resultText.AppendLine($"ErrorCode: {toolkit.ExtendedErrorCode.ToString()}");
+                resultText.AppendLine($"Location: {toolkit.ExtendedErrorLocation}");
+                resultText.AppendLine($"Description: {toolkit.ExtendedErrorDescription}");
+            }
+            Console.WriteLine(resultText.ToString());
             Console.WriteLine("Press any key to exit.");
             Console.ReadKey();
         }

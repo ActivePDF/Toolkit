@@ -1,0 +1,5 @@
+Supplier Name|Supplier Name|-997
+Address1|Address1|-997
+City|City|-997
+Region|Region|-997
+Zip Code|Postal Code|-997
