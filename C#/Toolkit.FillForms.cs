@@ -26,7 +26,7 @@ namespace ToolkitExamples
                 }
 
                 // Open the template PDF
-                result = toolkit.OpenInputFile(InputFileName: $"{strPath}Toolkit.FormsInput.pdf");
+                result = toolkit.OpenInputFile(InputFileName: $"{strPath}Toolkit.Input.pdf");
                 if (result != 0)
                 {
                     WriteResult($"Error opening input file: {result.ToString()}", toolkit);
@@ -47,9 +47,7 @@ namespace ToolkitExamples
 
                 // Populate form fields for the first page with data
                 // Refer to the documentation for possible flag options
-                toolkit.SetFormFieldData("name", "John Doe", 1);
-                toolkit.SetFormFieldData("date", "03-27-1984", -997);
-                toolkit.SetFormFieldData("amount", "4231.34", -997);
+                toolkit.SetFormFieldData("Text1", "This text field's content was updated using ActivePDF Toolkit.", 1);
 
                 // Copy the template (with any changes) to the new file
                 // Start page and end page, 0 = all pages
@@ -65,9 +63,7 @@ namespace ToolkitExamples
                 toolkit.ResetFormFields();
 
                 // Populate form fields for the second page with data
-                toolkit.SetFormFieldData("name", "Jane Doe", 1);
-                toolkit.SetFormFieldData("date", "07/13/1988", -997);
-                toolkit.SetFormFieldData("amount", "1567.12", -997);
+                toolkit.SetFormFieldData("Text1", "This text field's content was updated using ActivePDF Toolkit.", 1);
 
                 // Set whether to flatten all other fields not touched by
                 // SetFormFieldData
