@@ -45,10 +45,6 @@ namespace ToolkitExamples
                 // Close the new file to complete PDF creation
                 toolkit.CloseOutputFile();
 
-                // Set the in memory PDF to a variable.
-                // To retrieve the PDF as a byte array use oTK.BinaryImage
-                string memoryPDF = toolkit.OutputByteStream;
-
                 // To save a PDF in memory to a file directly call SaveMemoryToDisk
                 toolkit.SaveMemoryToDisk(FileName: $"{strPath}Toolkit.InMemory.pdf");
             }

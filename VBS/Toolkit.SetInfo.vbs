@@ -12,23 +12,24 @@ Set oTK = CreateObject("APToolkit.Object")
 
 ' Create the new PDF file
 intResult = oTK.OpenOutputFile(strPath & "Toolkit.SetInfo.pdf")
-If intResult <> 0 Then
-  ErrorHandler "OpenOutputFile", intResult
-End If
+If intResult = 0 Then
+    ' Open the template PDF
+    intResult = oTK.OpenInputFile(strPath & "Toolkit.Input.pdf")
+    If intResult = 0 Then
+        ' Set the PDF metadata for the output PDF
+        oTK.SetInfo "Test PDF", "Testing", "John Doe", "test, pdf, sample"
 
-' Open the template PDF
-intResult = oTK.OpenInputFile(strPath & "input.pdf")
-If intResult <> 0 Then
-  ErrorHandler "OpenInputFile", intResult
-End If
-
-' Set the PDF metadata for the output PDF
-oTK.SetInfo "Test PDF", "Testing", "John Doe", "test, pdf, sample"
-
-' Copy the template (with any changes) to the new file
-intResult = oTK.CopyForm(0, 0)
-If intResult <> 1 Then
-  ErrorHandler "CopyForm", intResult
+        ' Copy the template (with any changes) to the new file
+        ' Start page and end page, 0 = all pages 
+        intResult = oTK.CopyForm(0, 0)
+        If intResult <> 1 Then
+            WriteResult "CopyForm", intResult
+        End If
+    Else
+        WriteResult "OpenInputFile", intResult
+    End If
+Else
+    WriteResult "OpenOutputFile", intResult
 End If
 
 ' Close the new file to complete PDF creation
@@ -37,10 +38,13 @@ oTK.CloseOutputFile
 ' Release Object
 Set oTK = Nothing
 
-' Process Complete
-Wscript.Echo("Success!")
+Wscript.Echo "Success!"
 
-' Error Handling
-Sub ErrorHandler(method, outputCode)
-  Wscript.Echo("Error in " & method & ": " & outputCode)
+Sub WriteResult(method, outputCode)
+  errorString = "Error in " & method & ": " & outputCode & vbCrlf
+  errorString = errorString & "Extended Error Code: " & oTK.ExtendedErrorCode & vbCrlf
+  errorString = errorString & "Extended Error Location: " & oTK.ExtendedErrorLocation & vbCrlf
+  errorString = errorString & "Extended Error Description: " & oTK.ExtendedErrorDescription & vbCrlf  
+  Wscript.Echo(errorString)
+  WScript.Quit
 End Sub

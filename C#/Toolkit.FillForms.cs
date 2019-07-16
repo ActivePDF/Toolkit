@@ -63,7 +63,7 @@ namespace ToolkitExamples
                 toolkit.ResetFormFields();
 
                 // Populate form fields for the second page with data
-                toolkit.SetFormFieldData("Text1", "This text field's content was updated using ActivePDF Toolkit.", 1);
+                toolkit.SetFormFieldData("Text1", "This second text field's content was updated using ActivePDF Toolkit.", 1);
 
                 // Set whether to flatten all other fields not touched by
                 // SetFormFieldData

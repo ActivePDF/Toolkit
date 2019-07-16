@@ -12,27 +12,19 @@ Set oTK = CreateObject("APToolkit.Object")
 
 ' Create the new PDF file
 intResult = oTK.OpenOutputFile(strPath & "Toolkit.MergeFile.pdf")
-If intResult <> 0 Then
-  ErrorHandler "OpenOutputFile", intResult
-End If
+If intResult = 0 Then
+    ' Set whether the fields should be read only in the output PDF
+    ' 0 leave fields as they are, 1 mark all fields as read-only
+    ' Fields set with SetFormFieldData will not be effected
+    oTK.ReadOnlyOnMerge = 1
 
-' Set whether the fields should be read only in the output PDF
-' 0 leave fields as they are, 1 mark all fields as read-only
-' Fields set with SetFormFieldData will not be effected
-oTK.ReadOnlyOnMerge = 1
-
-' MergeFile is the equivalent of OpenInputFile and CopyForm
-
-' Merge the first PDF
-intResult = oTK.MergeFile(strPath & "input.pdf", 0, 0)
-If intResult <> 1 Then
-  ErrorHandler "MergeFile", intResult
-End If
-
-' Merge the second PDF
-intResult = oTK.MergeFile(strPath & "input.pdf", 0, 0)
-If intResult <> 1 Then
-  ErrorHandler "MergeFile", intResult
+    ' Merge the first PDF
+    intResult = oTK.MergeFile(strPath & "Toolkit.Input.pdf", 0, 0)
+    If intResult <= 0 Then
+        WriteResult "MergeFile", intResult
+    End If
+Else
+    WriteResult "OpenOutputFile", intResult
 End If
 
 ' Close the new file to complete PDF creation
@@ -44,7 +36,11 @@ Set oTK = Nothing
 ' Process Complete
 Wscript.Echo("Success!")
 
-' Error Handling
-Sub ErrorHandler(method, outputCode)
-  Wscript.Echo("Error in " & method & ": " & outputCode)
+Sub WriteResult(method, outputCode)
+  errorString = "Error in " & method & ": " & outputCode & vbCrlf
+  errorString = errorString & "Extended Error Code: " & oTK.ExtendedErrorCode & vbCrlf
+  errorString = errorString & "Extended Error Location: " & oTK.ExtendedErrorLocation & vbCrlf
+  errorString = errorString & "Extended Error Description: " & oTK.ExtendedErrorDescription & vbCrlf  
+  Wscript.Echo(errorString)
+  WScript.Quit
 End Sub

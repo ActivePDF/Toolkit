@@ -11,9 +11,9 @@ Set FSO = Nothing
 Set oTK = CreateObject("APToolkit.Object")
 
 ' Any supported image file can be converted to PDF with ImageToPDF
-intResult = oTK.ImageToPDF(strPath & "IMG.jpg", strPath & "Toolkit.ImageToPDF.pdf")
+intResult = oTK.ImageToPDF(strPath & "Toolkit.Input.jpg", strPath & "Toolkit.ImageToPDF.pdf")
 If intResult <> 1 Then
-  ErrorHandler "ImageToPDF", intResult
+  WriteResult "ImageToPDF", intResult
 End If
 
 ' Release Object
@@ -22,7 +22,11 @@ Set oTK = Nothing
 ' Process Complete
 Wscript.Echo("Success!")
 
-' Error Handling
-Sub ErrorHandler(method, outputCode)
-  Wscript.Echo("Error in " & method & ": " & outputCode)
+Sub WriteResult(method, outputCode)
+  errorString = "Error in " & method & ": " & outputCode & vbCrlf
+  errorString = errorString & "Extended Error Code: " & oTK.ExtendedErrorCode & vbCrlf
+  errorString = errorString & "Extended Error Location: " & oTK.ExtendedErrorLocation & vbCrlf
+  errorString = errorString & "Extended Error Description: " & oTK.ExtendedErrorDescription & vbCrlf  
+  Wscript.Echo(errorString)
+  WScript.Quit
 End Sub

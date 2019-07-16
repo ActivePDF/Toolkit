@@ -24,7 +24,7 @@ namespace ToolkitExamples
                 Console.WriteLine($"Producer: {toolkit.Producer}");
                 Console.WriteLine($"Creator: {toolkit.Creator}");
                 Console.WriteLine($"Creation Date: {toolkit.CreateDate}");
-                Console.WriteLine($"Modification Data: {toolkit.ModDate}");
+                Console.WriteLine($"Modification Date: {toolkit.ModDate}");
 
                 // Close the new file to complete PDF creation
                 toolkit.CloseInputFile();
