@@ -11,8 +11,8 @@ Set FSO = Nothing
 Set oTK = CreateObject("APToolkit.Object")
 
 ' Get the page count of the PDF
-result = oTK.NumPages(strPath & "Toolkit.Input.pdf")
-If result < 1 Then
+result = oTK.OpenInputFile(strPath & "Toolkit.Input.pdf")
+If result <> 0 Then
     WriteResult "NumPages", result
 End If
 

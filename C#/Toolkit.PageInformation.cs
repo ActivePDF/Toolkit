@@ -14,9 +14,9 @@ namespace ToolkitExamples
             using (APToolkitNET.Toolkit toolkit = new APToolkitNET.Toolkit())
             {
                 // Get the page count of the PDF
-                int result = toolkit.NumPages(
+                int result = toolkit.OpenInputFile(
                     FileName: $"{strPath}Toolkit.Input.pdf");
-                if (result < 1)
+                if (result != 0)
                 {
                     WriteResult($"Error opening input file: {result.ToString()}", toolkit);
                     return;
