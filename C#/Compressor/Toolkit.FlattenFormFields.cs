@@ -36,6 +36,7 @@ namespace ToolkitExamples
                 // Get the Toolkit Compressor object
                 APToolkitNET.Compressor compressor = toolkit.GetCompressor();
 
+                // Flatten form fields.
                 compressor.FlattenFormFields = true;
 
                 // Copy the template (with any changes) to the new file

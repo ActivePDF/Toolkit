@@ -22,7 +22,7 @@ If intResult = 0 Then
         ' Get the Compressor object        
         Set oCompressor = oTK.GetCompressor
 
-        ' Remove comments from the output PDF.
+        ' Flatten form fields in the output PDF
         oCompressor.FlattenFormFields = True
 
         ' Copy the template (with any changes) to the new file

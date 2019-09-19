@@ -19,7 +19,7 @@ If intResult = 0 Then
     ' Open the template PDF
     intResult = oTK.OpenInputFile(strPath & "Toolkit.Input.pdf")
     If intResult = 0 Then
-        ' Get the Compressor object        
+        ' Get the Compressor object
         Set oCompressor = oTK.GetCompressor
 
         ' Remove comments from the output PDF.

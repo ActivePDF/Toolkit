@@ -13,12 +13,8 @@ namespace ToolkitExamples
             // Instantiate Object
             using (APToolkitNET.Toolkit toolkit = new APToolkitNET.Toolkit())
             {
-
-                // Here you can place any code that will alter the output file
-                // Such as adding security, setting page dimensions, etc.
-
                 // Create the new PDF file
-                int result = toolkit.OpenOutputFile($"{strPath}Toolkit.DiscardFormFields.pdf");
+                int result = toolkit.OpenOutputFile($"{strPath}Toolkit.HighCompression.pdf");
                 if (result != 0)
                 {
                     WriteResult($"Error opening output file: {result.ToString()}", toolkit);
@@ -33,11 +29,52 @@ namespace ToolkitExamples
                     return;
                 }
 
-                // Get the Toolkit Compressor object
                 APToolkitNET.Compressor compressor = toolkit.GetCompressor();
+
+                // Compresses images in the output PDF.
+                compressor.CompressImages = true;
+
+                // Compresses eligible objects in the output PDF, which include
+                // page objects and fonts. Streams (including content, text,
+                // images, and data) are not affected.
+                compressor.CompressObjects = true;
+
+                // Compress images to a particular quality, used only with
+                // lossy image compression. Ranges from 1 to 100 indicate
+                // the result image quality. A lower value creates an image of
+                // lower PPI and smaller file size, while a greater value
+                // creates images of better quality but larger file size. The
+                // default is 20.
+                compressor.CompressionQuality = 20;
+
+                // Remove all embedded files.
+                compressor.DiscardAttachments = true;
+
+                // Remove comments from the output PDF.
+                compressor.DiscardComments = true;
 
                 // Remove form fields from the output PDF.
                 compressor.DiscardFormFields = true;
+
+                // Remove metadata from the output PDF.
+                compressor.DiscardMetadata = true;
+
+                // Remove markup and reflow data from the resulting PDF.
+                compressor.DiscardDocumentTags = true;
+
+                // Change the resolution of images to 72 dpi.
+                compressor.DownsampleImages = true;
+
+                // Compress uncompressed PDF streams.
+                compressor.EncodeStreams = true;
+
+                // Subset fonts.
+                compressor.SubsetFonts = true;
+
+                // Images of DPI greater or equal to the TriggerDPI will be
+                // downsampled to the TargetDPI
+                compressor.TargetDPI = 150.0f;
+                compressor.TriggerDPI = 300.0f;
 
                 // Copy the template (with any changes) to the new file
                 // Start page and end page, 0 = all pages
