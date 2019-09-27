@@ -13,22 +13,7 @@ namespace ToolkitExamples
             // Instantiate Object
             using (APToolkitNET.Toolkit toolkit = new APToolkitNET.Toolkit())
             {
-                // Create the new PDF file
-                int result = toolkit.OpenOutputFile($"{strPath}Toolkit.LowCompression.pdf");
-                if (result != 0)
-                {
-                    WriteResult($"Error opening output file: {result.ToString()}", toolkit);
-                    return;
-                }
-
-                // Open the template PDF
-                result = toolkit.OpenInputFile($"{strPath}Toolkit.Input.pdf");
-                if (result != 0)
-                {
-                    WriteResult($"Error opening input file: {result.ToString()}", toolkit);
-                    return;
-                }
-
+                // Instantiate the Compressor object
                 APToolkitNET.Compressor compressor = toolkit.GetCompressor();
 
                 // Compresses images in the output PDF.
@@ -51,6 +36,22 @@ namespace ToolkitExamples
                 // downsampled to the TargetDPI
                 compressor.TargetDPI = 150.0f;
                 compressor.TriggerDPI = 300.0f;
+
+                // Create the new PDF file
+                int result = toolkit.OpenOutputFile($"{strPath}Toolkit.LowCompression.pdf");
+                if (result != 0)
+                {
+                    WriteResult($"Error opening output file: {result.ToString()}", toolkit);
+                    return;
+                }
+
+                // Open the template PDF
+                result = toolkit.OpenInputFile($"{strPath}Toolkit.Input.pdf");
+                if (result != 0)
+                {
+                    WriteResult($"Error opening input file: {result.ToString()}", toolkit);
+                    return;
+                }
 
                 // Copy the template (with any changes) to the new file
                 // Start page and end page, 0 = all pages

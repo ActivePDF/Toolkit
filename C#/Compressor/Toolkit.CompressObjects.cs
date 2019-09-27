@@ -13,9 +13,13 @@ namespace ToolkitExamples
             // Instantiate Object
             using (APToolkitNET.Toolkit toolkit = new APToolkitNET.Toolkit())
             {
+                // Instantiate the Compressor object
+                APToolkitNET.Compressor compressor = toolkit.GetCompressor();
 
-                // Here you can place any code that will alter the output file
-                // Such as adding security, setting page dimensions, etc.
+                // Compresses eligible objects in the output PDF, which include
+                // page objects and fonts. Streams (including content, text,
+                // images, and data) are not affected.
+                compressor.CompressObjects = true;
 
                 // Create the new PDF file
                 int result = toolkit.OpenOutputFile($"{strPath}Toolkit.CompressObjects.pdf");
@@ -32,13 +36,6 @@ namespace ToolkitExamples
                     WriteResult($"Error opening input file: {result.ToString()}", toolkit);
                     return;
                 }
-
-                APToolkitNET.Compressor compressor = toolkit.GetCompressor();
-
-                // Compresses eligible objects in the output PDF, which include
-                // page objects and fonts. Streams (including content, text,
-                // images, and data) are not affected.
-                compressor.CompressObjects = true;
 
                 // Copy the template (with any changes) to the new file
                 // Start page and end page, 0 = all pages

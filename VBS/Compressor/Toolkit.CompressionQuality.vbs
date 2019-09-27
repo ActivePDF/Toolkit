@@ -10,8 +10,18 @@ Set FSO = Nothing
 ' Instantiate Object
 Set oTK = CreateObject("APToolkit.Object")
 
-' Here you can place any code that will alter the output file
-' Such as adding security, setting page dimensions, etc.
+' Get the Compressor object
+Set oCompressor = oTK.GetCompressor
+
+' Compresses images in the output PDF with the default settings.
+oCompressor.CompressImages = True
+
+' Compress images to a particular quality, used only with lossy image
+' compression. Ranges from 1 to 100 indicate the result image quality.
+' A lower value creates an image of lower PPI and smaller file size,
+' while a greater value creates images of better quality but larger
+' file size. The default is 20.
+oCompressor.CompressionQuality = 10
 
 ' Create the new PDF file
 intResult = oTK.OpenOutputFile(strPath & "Toolkit.CompressionQuality.pdf")
@@ -20,19 +30,6 @@ If intResult = 0 Then
     intResult = oTK.OpenInputFile(strPath & "Toolkit.Input.pdf")
     If intResult = 0 Then
         
-        ' Get the Compressor object
-        Set oCompressor = oTK.GetCompressor
-
-        ' Compresses images in the output PDF with the default settings.
-        oCompressor.CompressImages = True
-
-        ' Compress images to a particular quality, used only with lossy image
-        ' compression. Ranges from 1 to 100 indicate the result image quality.
-        ' A lower value creates an image of lower PPI and smaller file size,
-        ' while a greater value creates images of better quality but larger
-        ' file size. The default is 20.
-        oCompressor.CompressionQuality = 10
-
         ' Copy the template (with any changes) to the new file
         ' Start page and end page, 0 = all pages 
         intResult = oTK.CopyForm(0, 0)

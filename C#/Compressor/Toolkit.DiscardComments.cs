@@ -13,9 +13,11 @@ namespace ToolkitExamples
             // Instantiate Object
             using (APToolkitNET.Toolkit toolkit = new APToolkitNET.Toolkit())
             {
+                // Instantiate the Compressor object
+                APToolkitNET.Compressor compressor = toolkit.GetCompressor();
 
-                // Here you can place any code that will alter the output file
-                // Such as adding security, setting page dimensions, etc.
+                // Remove comments from the output PDF.
+                compressor.DiscardComments = true;
 
                 // Create the new PDF file
                 int result = toolkit.OpenOutputFile($"{strPath}Toolkit.DiscardComments.pdf");
@@ -32,12 +34,6 @@ namespace ToolkitExamples
                     WriteResult($"Error opening input file: {result.ToString()}", toolkit);
                     return;
                 }
-
-                // Get the Toolkit Compressor object
-                APToolkitNET.Compressor compressor = toolkit.GetCompressor();
-
-                // Remove comments from the output PDF.
-                compressor.DiscardComments = true;
 
                 // Copy the template (with any changes) to the new file
                 // Start page and end page, 0 = all pages

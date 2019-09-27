@@ -10,8 +10,11 @@ Set FSO = Nothing
 ' Instantiate Object
 Set oTK = CreateObject("APToolkit.Object")
 
-' Here you can place any code that will alter the output file
-' Such as adding security, setting page dimensions, etc.
+' Get the Compressor object        
+Set oCompressor = oTK.GetCompressor
+
+' Flatten form fields in the output PDF
+oCompressor.FlattenFormFields = True
 
 ' Create the new PDF file
 intResult = oTK.OpenOutputFile(strPath & "Toolkit.FlattenFormFields.pdf")
@@ -19,11 +22,6 @@ If intResult = 0 Then
     ' Open the template PDF
     intResult = oTK.OpenInputFile(strPath & "Toolkit.Input.pdf")
     If intResult = 0 Then
-        ' Get the Compressor object        
-        Set oCompressor = oTK.GetCompressor
-
-        ' Flatten form fields in the output PDF
-        oCompressor.FlattenFormFields = True
 
         ' Copy the template (with any changes) to the new file
         ' Start page and end page, 0 = all pages 

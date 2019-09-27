@@ -13,9 +13,16 @@ namespace ToolkitExamples
             // Instantiate Object
             using (APToolkitNET.Toolkit toolkit = new APToolkitNET.Toolkit())
             {
+                // Instantiate the Compressor object
+                APToolkitNET.Compressor compressor = toolkit.GetCompressor();
 
-                // Here you can place any code that will alter the output file
-                // Such as adding security, setting page dimensions, etc.
+                // Change the resolution of images to 72 dpi.
+                compressor.DownsampleImages = true;
+
+                // Images of DPI greater or equal to the TriggerDPI will be
+                // downsampled to the TargetDPI
+                compressor.TargetDPI = 72.0f;
+                compressor.TriggerDPI = 150.0f;
 
                 // Create the new PDF file
                 int result = toolkit.OpenOutputFile($"{strPath}Toolkit.DownsampleImages.pdf");
@@ -32,17 +39,6 @@ namespace ToolkitExamples
                     WriteResult($"Error opening input file: {result.ToString()}", toolkit);
                     return;
                 }
-
-                // Get the Toolkit Compressor object
-                APToolkitNET.Compressor compressor = toolkit.GetCompressor();
-
-                // Change the resolution of images to 72 dpi.
-                compressor.DownsampleImages = true;
-
-                // Images of DPI greater or equal to the TriggerDPI will be
-                // downsampled to the TargetDPI
-                compressor.TargetDPI = 72.0f;
-                compressor.TriggerDPI = 150.0f;
 
                 // Copy the template (with any changes) to the new file
                 // Start page and end page, 0 = all pages

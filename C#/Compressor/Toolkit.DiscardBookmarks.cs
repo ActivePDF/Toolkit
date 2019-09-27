@@ -13,10 +13,7 @@ namespace ToolkitExamples
             // Instantiate Object
             using (APToolkitNET.Toolkit toolkit = new APToolkitNET.Toolkit())
             {
-
-                // Here you can place any code that will alter the output file
-                // Such as adding security, setting page dimensions, etc.
-                // Get the Toolkit Compressor object
+                // Instantiate the Compressor object
                 APToolkitNET.Compressor compressor = toolkit.GetCompressor();
 
                 // Remove bookmarks from the output PDF.

@@ -13,9 +13,19 @@ namespace ToolkitExamples
             // Instantiate Object
             using (APToolkitNET.Toolkit toolkit = new APToolkitNET.Toolkit())
             {
+                // Instantiate the Compressor object
+                APToolkitNET.Compressor compressor = toolkit.GetCompressor();
 
-                // Here you can place any code that will alter the output file
-                // Such as adding security, setting page dimensions, etc.
+                // Compresses images in the output PDF.
+                compressor.CompressImages = true;
+
+                // Compress images to a particular quality, used only with
+                // lossy image compression. Ranges from 1 to 100 indicate
+                // the result image quality. A lower value creates an image of
+                // lower PPI and smaller file size, while a greater value
+                // creates images of better quality but larger file size. The
+                // default is 20.
+                compressor.CompressionQuality = 75;
 
                 // Create the new PDF file
                 int result = toolkit.OpenOutputFile($"{strPath}Toolkit.CompressionQuality.pdf");
@@ -32,19 +42,6 @@ namespace ToolkitExamples
                     WriteResult($"Error opening input file: {result.ToString()}", toolkit);
                     return;
                 }
-
-                APToolkitNET.Compressor compressor = toolkit.GetCompressor();
-
-                // Compresses images in the output PDF.
-                compressor.CompressImages = true;
-
-                // Compress images to a particular quality, used only with
-                // lossy image compression. Ranges from 1 to 100 indicate
-                // the result image quality. A lower value creates an image of
-                // lower PPI and smaller file size, while a greater value
-                // creates images of better quality but larger file size. The
-                // default is 20.
-                compressor.CompressionQuality = 75;
 
                 // Copy the template (with any changes) to the new file
                 // Start page and end page, 0 = all pages
