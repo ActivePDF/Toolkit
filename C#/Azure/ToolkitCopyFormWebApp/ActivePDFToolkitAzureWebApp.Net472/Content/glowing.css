@@ -1,0 +1,86 @@
+﻿.glow {
+    background-color: #004A7F;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    border: none;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    font-family: Arial;
+    font-size: 20px;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    -webkit-animation: glowing 1500ms infinite;
+    -moz-animation: glowing 1500ms infinite;
+    -o-animation: glowing 1500ms infinite;
+    animation: glowing 1500ms infinite;
+}
+
+@-webkit-keyframes glowing {
+    0% {
+        background-color: #00B200;
+        -webkit-box-shadow: 0 0 3px #00B200;
+    }
+
+    50% {
+        background-color: #00FF00;
+        -webkit-box-shadow: 0 0 40px #00FF00;
+    }
+
+    100% {
+        background-color: #00B200;
+        -webkit-box-shadow: 0 0 3px #00B200;
+    }
+}
+
+@-moz-keyframes glowing {
+    0% {
+        background-color: #00B200;
+        -moz-box-shadow: 0 0 3px #00B200;
+    }
+
+    50% {
+        background-color: #00FF00;
+        -moz-box-shadow: 0 0 40px #00FF00;
+    }
+
+    100% {
+        background-color: #00B200;
+        -moz-box-shadow: 0 0 3px #00B200;
+    }
+}
+
+@-o-keyframes glowing {
+    0% {
+        background-color: #00B200;
+        box-shadow: 0 0 3px #00B200;
+    }
+
+    50% {
+        background-color: #00FF00;
+        box-shadow: 0 0 40px #00FF00;
+    }
+
+    100% {
+        background-color: #00B200;
+        box-shadow: 0 0 3px #00B200;
+    }
+}
+
+@keyframes glowing {
+    0% {
+        background-color: #00B200;
+        box-shadow: 0 0 3px #00B200;
+    }
+
+    50% {
+        background-color: #00FF00;
+        box-shadow: 0 0 40px #00FF00;
+    }
+
+    100% {
+        background-color: #00B200;
+        box-shadow: 0 0 3px #00B200;
+    }
+}

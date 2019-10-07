@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ToolkitExamples
+namespace Toolkit_Examples
 {
     class Program
     {
@@ -55,13 +55,13 @@ namespace ToolkitExamples
                     {
                         // Add the page from the original PDF to the output.
                         toolkit.StitchPDF(
-                            FileName: inputFile,
-                            PageNumber: i + j,
-                            X: width * j,
-                            Y: pageHeight - (height * i),
-                            Width: width,
-                            Height: height,
-                            Rotation: 0);
+                        FileName: inputFile,
+                        PageNumber: i + j,
+                        X: width * j,
+                        Y: pageHeight - (height * i),
+                        Width: width,
+                        Height: height,
+                        Rotation: 0);
                     }
                 }
 

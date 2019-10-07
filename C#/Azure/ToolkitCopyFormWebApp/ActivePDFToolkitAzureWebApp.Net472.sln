@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29215.179
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ActivePDFToolkitAzureWebApp.Net472", "ActivePDFToolkitAzureWebApp.Net472\ActivePDFToolkitAzureWebApp.Net472.csproj", "{FF1A960C-7C66-4DF2-9743-931DF4F9DF00}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FF1A960C-7C66-4DF2-9743-931DF4F9DF00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF1A960C-7C66-4DF2-9743-931DF4F9DF00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF1A960C-7C66-4DF2-9743-931DF4F9DF00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF1A960C-7C66-4DF2-9743-931DF4F9DF00}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {61DB0827-AD43-4559-A2C1-5BB7A0F1BF1F}
+	EndGlobalSection
+EndGlobal

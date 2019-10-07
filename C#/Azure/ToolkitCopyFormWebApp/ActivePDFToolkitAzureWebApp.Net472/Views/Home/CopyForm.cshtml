@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "Copy PDF";
+}
+
+<h1>Toolkit CopyForm Example</h1>
+<p>
+    This example uses the Toolkit CopyForm function to create a copy of a PDF file. Simply click the "Choose File" option below to begin.
+    <br />
+    <a class="btn btn-default" href="http://documentation.activepdf.com/Toolkit/Toolkit_API/index.htm#2a_toolkit/method_CopyForm.html%3FTocPath%3DAPI%2520Reference%7CToolkit%2520Object%7CToolkit%2520Methods%7C_____25" target="_blank">Learn more &raquo;</a>
+</p>
+<br />
+<br />
+<br />
+
+@using (Html.BeginForm("UploadFile",
+                        "Home",
+                        FormMethod.Post,
+                        new { @class="btn btn-default", enctype = "multipart/form-data" }))
+{
+    <input class="btn btn-default" type="file" name="file" id="file" accept=".pdf" />
+    <br />    
+    <br />
+    <input class="btn btn-default" type="submit" value="Generate Copy" />   
+}
+<br />
+(4MB file size limit)
+
