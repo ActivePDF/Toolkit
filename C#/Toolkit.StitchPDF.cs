@@ -13,8 +13,16 @@ namespace Toolkit_Examples
             string strPath = System.AppDomain.CurrentDomain.BaseDirectory;
             string inputFile = $"{strPath}Toolkit.Input.pdf";
 
+            // Starting with Toolkit version 10 native DLLs are no longer
+            // copied to the system folder. The Toolkit constructor must
+            // be called with the path to the native DLLs or place them
+            // in your applications working directory. This example
+            // assumes they are located in the default installation folder.
+            // (Use x86 in the path for 32b applications)
+            string toolkitPath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles)}\ActivePDF\Toolkit\bin\x64";
+
             // Instantiate Object
-            using (APToolkitNET.Toolkit toolkit = new APToolkitNET.Toolkit())
+            using (APToolkitNET.Toolkit toolkit = new APToolkitNET.Toolkit(toolkitPath))
             {
                 // Retrieves the number of pages for the specified PDF file.
                 int numPages = toolkit.NumPages(inputFile);

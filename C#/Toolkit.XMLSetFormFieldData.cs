@@ -10,14 +10,22 @@ namespace ToolkitExamples
         {
             string strPath = System.AppDomain.CurrentDomain.BaseDirectory;
 
+            // Starting with Toolkit version 10 native DLLs are no longer
+            // copied to the system folder. The Toolkit constructor must
+            // be called with the path to the native DLLs or place them
+            // in your applications working directory. This example
+            // assumes they are located in the default installation folder.
+            // (Use x86 in the path for 32b applications)
+            string toolkitPath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles)}\ActivePDF\Toolkit\bin\x64";
+
             // Instantiate Object
-            using (APToolkitNET.Toolkit toolkit = new APToolkitNET.Toolkit())
+            using (APToolkitNET.Toolkit toolkit = new APToolkitNET.Toolkit(toolkitPath))
             {
                 // Here you can place any code that will alter the output file
                 // such as adding security, setting page dimensions, etc.
 
                 // Create the new PDF file
-                int result = toolkit.OpenOutputFile(FileName: $"{strPath}Toolkit.XMLSetFormFieldData.pdf");               
+                int result = toolkit.OpenOutputFile(FileName: $"{strPath}Toolkit.XMLSetFormFieldData.pdf");
                 if (result != 0)
                 {
                     WriteResult($"Error opening output file: {result.ToString()}", toolkit);
@@ -35,7 +43,7 @@ namespace ToolkitExamples
                 // Populate form fields from the xml file. The field for the input sample is
                 // located on page two.
                 toolkit.XMLSetFormFieldData($"{strPath}Toolkit.FieldInput.xml", 0, 1, String.Empty);
-               
+
                 // Copy the template (with any changes) to the new file
                 // Start page and end page, 0 = all pages
                 result = toolkit.CopyForm(FirstPage: 0, LastPage: 0);

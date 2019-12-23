@@ -10,8 +10,16 @@ namespace ToolkitExamples
         {
             string strPath = System.AppDomain.CurrentDomain.BaseDirectory;
 
+            // Starting with Toolkit version 10 native DLLs are no longer
+            // copied to the system folder. The Toolkit constructor must
+            // be called with the path to the native DLLs or place them
+            // in your applications working directory. This example
+            // assumes they are located in the default installation folder.
+            // (Use x86 in the path for 32b applications)
+            string toolkitPath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles)}\ActivePDF\Toolkit\bin\x64";
+
             // Instantiate Object
-            using (APToolkitNET.Toolkit toolkit = new APToolkitNET.Toolkit())
+            using (APToolkitNET.Toolkit toolkit = new APToolkitNET.Toolkit(toolkitPath))
             {
                 // Instantiate the Compressor object
                 APToolkitNET.Compressor compressor = toolkit.GetCompressor();
@@ -33,7 +41,7 @@ namespace ToolkitExamples
                 {
                     WriteResult($"Error opening input file: {result.ToString()}", toolkit);
                     return;
-                }                
+                }
 
                 // Copy the template (with any changes) to the new file
                 // Start page and end page, 0 = all pages
