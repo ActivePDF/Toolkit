@@ -12,6 +12,8 @@ namespace ToolkitUltimate_Examples
     {
         static void Main(string[] args)
         {
+            string strPath = System.AppDomain.CurrentDomain.BaseDirectory;
+
             // Starting with Toolkit version 10 native DLLs are no longer
             // copied to the system folder. The Toolkit constructor must
             // be called with the path to the native DLLs or place them
