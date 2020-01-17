@@ -21,13 +21,13 @@ namespace ToolkitUltimate_Examples
             // Instantiate Object
             using (APToolkitNET.Toolkit toolkit = new APToolkitNET.Toolkit(toolkitPath))
             {
+                // Get the Spooler object from Toolkit
+                APToolkitNET.Spooler spooler = toolkit.GetSpooler();
+
                 // Open the input PDF
                 int result = toolkit.OpenInputFile(InputFileName: $"{strPath}Toolkit.Input.pdf");
                 if (result == 0)
                 {
-                    // Get the Spooler object from Toolkit
-                    APToolkitNET.Spooler spooler = toolkit.GetSpooler();
-
                     // Set the duplex mode, only valid if supported by the
                     // printer.
                     spooler.DuplexMode = APToolkitNET.DuplexMode.Vertical;
