@@ -22,12 +22,14 @@ namespace ToolkitUltimate_Examples
             // Instantiate Object
             using (APToolkitNET.Toolkit toolkit = new APToolkitNET.Toolkit(toolkitPath))
             {
+                 // Get the Extractor object from Toolkit
+                 APToolkitNET.Extractor extractor = toolkit.GetExtractor();
+                
                 // Open the input PDF
                 int result = toolkit.OpenInputFile($"{strPath}Toolkit.Input.pdf");
                 if (result == 0)
                 {
-                    // Get the Extractor object from Toolkit
-                    APToolkitNET.Extractor extractor = toolkit.GetExtractor();
+
 
                     // Extract all images from the input PDF and save them in a
                     // randomly named file.
