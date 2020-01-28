@@ -1,7 +1,6 @@
 
 using System;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace ToolkitUltimate_Examples
 {
@@ -23,21 +22,19 @@ namespace ToolkitUltimate_Examples
             using (APToolkitNET.Toolkit toolkit = new APToolkitNET.Toolkit(toolkitPath))
             {
                 // Get the Extractor object from Toolkit
-                 APToolkitNET.Extractor extractor = toolkit.GetExtractor();
-                
+                APToolkitNET.Extractor extractor = toolkit.GetExtractor();
+
                 // Open the input PDF
                 int result = toolkit.OpenInputFile(InputFileName: $"{strPath}Toolkit.Input.pdf");
                 if (result == 0)
                 {
-
-
-                    // Extract an image from the input PDF at the inputlocation
-                    // randomly named file.
+                    // Extract an image from the input PDF at the input
+                    // location and save it as a randomly named file.
                     // Extractor supports BMP, JPEG, PNG, RGB, and TIFF
                     var image = extractor.ExtractImageByArea(
                         eImageType: APToolkitNET.APImageType.JPEG,
                         Page: 1,
-                        Rect: new System.Drawing.RectangleF(10.0f, 500.0f, 200.0f, 200.0f));
+                        Rect: new System.Drawing.RectangleF(300.0f, 0.0f, 300.0f, 100.0f));
                     string fileName = $"{System.IO.Path.GetRandomFileName()}.jpg";
                     try
                     {
@@ -45,7 +42,7 @@ namespace ToolkitUltimate_Examples
                         {
                             Console.WriteLine($"Extracting Image to: {fileName}");
                             System.IO.File.WriteAllBytes(
-                                $"{System.IO.Directory.GetCurrentDirectory()}\\{fileName}",
+                                $"{strPath}\\{fileName}",
                                 image);
                         }
                         else

@@ -21,9 +21,9 @@ namespace ToolkitUltimate_Examples
             // Instantiate Object
             using (APToolkitNET.Toolkit toolkit = new APToolkitNET.Toolkit(toolkitPath))
             {
-                 // Get the Extractor object from Toolkit
-                 APToolkitNET.Extractor extractor = toolkit.GetExtractor();
-                
+                // Get the Extractor object from Toolkit
+                APToolkitNET.Extractor extractor = toolkit.GetExtractor();
+
                 // Open the input PDF
                 int result = toolkit.OpenInputFile(InputFileName: $"{strPath}Toolkit.Input.pdf");
                 if (result == 0)

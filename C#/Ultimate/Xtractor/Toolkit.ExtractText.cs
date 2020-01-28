@@ -21,16 +21,13 @@ namespace ToolkitUltimate_Examples
             // Instantiate Object
             using (APToolkitNET.Toolkit toolkit = new APToolkitNET.Toolkit(toolkitPath))
             {
-                 // Get the Extractor object from Toolkit
-                 APToolkitNET.Extractor extractor = toolkit.GetExtractor();
-                
+                // Get the Extractor object from Toolkit
+                APToolkitNET.Extractor extractor = toolkit.GetExtractor();
+
                 // Open the input PDF
                 int result = toolkit.OpenInputFile(InputFileName: $"{strPath}Toolkit.Input.pdf");
                 if (result == 0)
                 {
-                    // Get the Extractor object from Toolkit
-                    APToolkitNET.Extractor extractor = toolkit.GetExtractor();
-
                     // Extract the text from the whole document at once.
                     string extractedText = extractor.ExtractText();
 
@@ -53,8 +50,8 @@ namespace ToolkitUltimate_Examples
                                 fileName = $"{System.IO.Path.GetRandomFileName()}_Page{i}.txt";
                                 extractedText = extractor.ExtractText(i);
                                 System.IO.File.WriteAllText(
-                                $"{System.IO.Directory.GetCurrentDirectory()}\\{fileName}",
-                                extractedText);
+                                    $"{strPath}\\{fileName}",
+                                    extractedText);
                             }
                         }
                         else
