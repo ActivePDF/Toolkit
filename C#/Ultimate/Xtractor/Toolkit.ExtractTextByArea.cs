@@ -21,15 +21,15 @@ namespace ToolkitUltimate_Examples
             // Instantiate Object
             using (APToolkitNET.Toolkit toolkit = new APToolkitNET.Toolkit(toolkitPath))
             {
+                // Get the Extractor object from Toolkit
+                APToolkitNET.Extractor extractor = toolkit.GetExtractor();
+
                 // Open the input PDF
                 int result = toolkit.OpenInputFile(InputFileName: $"{strPath}Toolkit.Input.pdf");
                 if (result == 0)
                 {
                     // Get the number of pages in the input PDF.
                     int numPages = toolkit.NumPages(FileName: "");
-
-                    // Get the Extractor object from Toolkit
-                    APToolkitNET.Extractor extractor = toolkit.GetExtractor();
 
                     // If you know where on the page you want to look, you can
                     // restrict extractions to just that area. In this example,

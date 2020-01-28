@@ -22,13 +22,13 @@ namespace ToolkitUltimate_Examples
             // Instantiate Object
             using (APToolkitNET.Toolkit toolkit = new APToolkitNET.Toolkit(toolkitPath))
             {
+                // Get the Extractor object from Toolkit
+                APToolkitNET.Extractor extractor = toolkit.GetExtractor();
+
                 // Open the input PDF
                 int result = toolkit.OpenInputFile($"{strPath}Toolkit.Input.pdf");
                 if (result == 0)
                 {
-                    // Get the Extractor object from Toolkit
-                    APToolkitNET.Extractor extractor = toolkit.GetExtractor();
-
                     // Extract all images from the input PDF and save them in a
                     // randomly named file.
                     // Extractor supports BMP, JPEG, PNG, RGB, and TIFF
@@ -40,7 +40,7 @@ namespace ToolkitUltimate_Examples
                         {
                             Console.WriteLine($"Extracting Image to: {fileName}");
                             System.IO.File.WriteAllBytes(
-                                $"{System.IO.Directory.GetCurrentDirectory()}\\{fileName}",
+                                $"{strPath}\\{fileName}",
                                 image);
                         }
                         catch (Exception e)
