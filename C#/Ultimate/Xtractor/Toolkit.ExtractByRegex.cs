@@ -25,6 +25,10 @@ namespace ToolkitUltimate_Examples
             // Instantiate Object
             using (APToolkitNET.Toolkit toolkit = new APToolkitNET.Toolkit(toolkitPath))
             {
+               
+                // Get the Extractor object from Toolkit
+                APToolkitNET.Extractor extractor = toolkit.GetExtractor();
+                
                 // Open the input PDF
                 int result = toolkit.OpenInputFile(InputFileName: $"{strPath}Toolkit.Input.pdf");
                 if (result != 0)
@@ -33,8 +37,6 @@ namespace ToolkitUltimate_Examples
                     return;
                 }
 
-                // Get the Extractor object from Toolkit
-                APToolkitNET.Extractor extractor = toolkit.GetExtractor();
 
                 // Simple regex to search for all words starting with an "S"
                 Regex re = new Regex(pattern: @"\bs\S*");
