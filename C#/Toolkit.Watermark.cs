@@ -2,7 +2,7 @@
 using System;
 using System.Text;
 
-namespace ToolkitUltimate_Examples
+namespace ToolkitExamples
 {
     class Program
     {
@@ -16,45 +16,50 @@ namespace ToolkitUltimate_Examples
             // in your applications working directory. This example
             // assumes they are located in the default installation folder.
             // (Use x86 in the path for 32b applications)
-            string toolkitPath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles)}\ActivePDF\Toolkit Ultimate\bin\x64";
+            string toolkitPath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles)}\ActivePDF\Toolkit\bin\x64";
 
             // Instantiate Object
-            using (APToolkitNET.Toolkit toolkit = new APToolkitNET.Toolkit(toolkitPath))
+            using (APToolkitNET.Toolkit toolkit = new APToolkitNET.Toolkit(CoreLibPath: toolkitPath))
             {
-                // Get the Redactor object from Toolkit
-                APToolkitNET.Redactor redactor = toolkit.GetRedactor();
+                // Here you can place any code that will alter the output file
+                // Such as adding security, setting page dimensions, etc.
 
-                int result = toolkit.OpenOutputFile(FileName: $"{strPath}Toolkit.RedactWord.pdf");
+                // Create the new PDF file
+                int result = toolkit.OpenOutputFile(FileName: $"{strPath}Toolkit.Watermark.pdf");
                 if (result == 0)
                 {
-                    // Open the input PDF
+                    // Open the template PDF
                     result = toolkit.OpenInputFile(InputFileName: $"{strPath}Toolkit.Input.pdf");
                     if (result == 0)
                     {
-                        string redactionString = "Toolkit";
+                        // Add a watermark
+                        string stampText = "WATERMARK";
+                        toolkit.SetFont(FontName: "Helvetica",
+                                        FontSize: 72,
+                                        PageNumber: -1);
+                        toolkit.SetTextColor(AmountRed: 168,
+                                             AmountGreen: 0,
+                                             AmountBlue: 0,
+                                             AmountGrey: 0,
+                                             PageNumber: -1);
+                        toolkit.PrintText(
+                            X: (612 - toolkit.GetTextWidth(stampText)) / 2,
+                            Y: (792 - toolkit.GetTextHeight(stampText)) / 2,
+                            Text: stampText,
+                            PageNumber: -1);
+                        toolkit.ResetTextColor(PageNumber: -1);
 
-                        // Redact an array of strings from the input document.
-                        // Redactor also supports text mode redaction of a
-                        // string single.
-                        // You may also redact individual pages setting the
-                        // page function argument, the default is all pages.
-                        redactor.RedactWord(word: redactionString);
-
-                        // Call the Redactor Apply method to execute the
-                        // redaction process. All Toolkit methods normally
-                        // called between OpenInputFile and CopyForm
-                        // (PrintText, PrintImage etc.) must be after
-                        // Redactor.Apply
-                        redactor.Apply();
-
+                        // Copy the template (with any changes) to the new file
+                        // Start page and end page, 0 = all pages
                         result = toolkit.CopyForm(FirstPage: 0, LastPage: 0);
                         if (result != 1)
                         {
-                            WriteResult("CopyForm Failed", toolkit);
+                            WriteResult($"Error copying file: {result.ToString()}", toolkit);
+                            return;
                         }
 
                         // Close the new file to complete PDF creation
-                        toolkit.CloseInputFile();
+                        toolkit.CloseOutputFile();
                     }
                     else
                     {

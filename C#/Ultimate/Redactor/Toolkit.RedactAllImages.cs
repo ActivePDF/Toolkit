@@ -24,13 +24,13 @@ namespace ToolkitUltimate_Examples
                 int result = toolkit.OpenOutputFile(FileName: $"{strPath}Toolkit.RedactAllImages.pdf");
                 if (result == 0)
                 {
+                    // Get the Redactor object from Toolkit
+                    APToolkitNET.Redactor redactor = toolkit.GetRedactor();
+
                     // Open the input PDF
                     result = toolkit.OpenInputFile(InputFileName: $"{strPath}Toolkit.Input.pdf");
                     if (result == 0)
                     {
-                        // Get the Redactor object from Toolkit
-                        APToolkitNET.Redactor redactor = toolkit.GetRedactor();
-
                         // Redact all images from the input file.
                         redactor.RedactAll(mode: APToolkitNET.Redactor.RedactionMode.AllImages);
 

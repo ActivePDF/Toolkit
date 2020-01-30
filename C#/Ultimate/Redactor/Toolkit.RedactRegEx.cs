@@ -21,6 +21,9 @@ namespace ToolkitUltimate_Examples
             // Instantiate Object
             using (APToolkitNET.Toolkit toolkit = new APToolkitNET.Toolkit(toolkitPath))
             {
+                // Get the Redactor object from Toolkit
+                APToolkitNET.Redactor redactor = toolkit.GetRedactor();
+
                 int result = toolkit.OpenOutputFile(FileName: $"{strPath}Toolkit.RedactRegEx.pdf");
                 if (result == 0)
                 {
@@ -28,9 +31,6 @@ namespace ToolkitUltimate_Examples
                     result = toolkit.OpenInputFile(InputFileName: $"{strPath}Toolkit.Input.pdf");
                     if (result == 0)
                     {
-                        // Get the Redactor object from Toolkit
-                        APToolkitNET.Redactor redactor = toolkit.GetRedactor();
-
                         // Regular expression to use, all words starting with 
                         // an 's' or 'S'
                         string pattern = @"\b[s|S](\S+)\s?";

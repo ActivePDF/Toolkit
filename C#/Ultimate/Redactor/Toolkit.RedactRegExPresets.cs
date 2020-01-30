@@ -21,6 +21,9 @@ namespace ToolkitUltimate_Examples
             // Instantiate Object
             using (APToolkitNET.Toolkit toolkit = new APToolkitNET.Toolkit(toolkitPath))
             {
+                // Get the Redactor object from Toolkit
+                APToolkitNET.Redactor redactor = toolkit.GetRedactor();
+
                 int result = toolkit.OpenOutputFile(FileName: $"{strPath}Toolkit.RedactRegExPreset.pdf");
                 if (result == 0)
                 {
@@ -28,9 +31,6 @@ namespace ToolkitUltimate_Examples
                     result = toolkit.OpenInputFile(InputFileName: $"{strPath}Toolkit.Input.pdf");
                     if (result == 0)
                     {
-                        // Get the Redactor object from Toolkit
-                        APToolkitNET.Redactor redactor = toolkit.GetRedactor();
-
                         // Redactor has several pre generated regular
                         // expressions for text redaction. (date, email,
                         // numbers, phone number, SSN, USD, websites, words)
