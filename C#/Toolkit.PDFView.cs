@@ -21,19 +21,8 @@ namespace ToolkitExamples
             // Instantiate Object
             using (APToolkitNET.Toolkit toolkit = new APToolkitNET.Toolkit(toolkitPath))
             {
-                // Here you can place any code that will alter the output file
-                // such as adding security, setting page dimensions, etc.
-
-                // Create the new PDF file
-                int result = toolkit.OpenOutputFile(FileName: $"{strPath}Toolkit.PDFViewData.pdf");
-                if (result != 0)
-                {
-                    WriteResult($"Error opening output file: {result.ToString()}", toolkit);
-                    return;
-                }
-
                 // Open the template PDF
-                result = toolkit.OpenInputFile(InputFileName: $"{strPath}Toolkit.Input.pdf");
+                int result = toolkit.OpenInputFile(InputFileName: $"{strPath}Toolkit.Input.pdf");
                 if (result != 0)
                 {
                     WriteResult($"Error opening input file: {result.ToString()}", toolkit);
