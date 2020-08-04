@@ -32,13 +32,6 @@ If intResult = 0 Then
     ' PrintJPEG and PrintTIFF
     oTK.PrintJPEG strPath + "Toolkit.Input.jpg", 72.0, 300.0, _
         468.0, 400.0, true, 0
-
-    ' Copy the template (with any changes) to the new file
-    ' Start page and end page, 0 = all pages 
-    intResult = oTK.CopyForm(0, 0)
-    If intResult <> 1 Then
-        WriteResult "CopyForm", intResult
-    End If
 Else
     WriteResult "OpenOutputFile", intResult
 End If
