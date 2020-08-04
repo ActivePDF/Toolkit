@@ -56,15 +56,6 @@ namespace ToolkitExamples
                     PersistRatio: true,
                     PageNumber: 0);
 
-                // Copy the template (with any changes) to the new file
-                // Start page and end page, 0 = all pages
-                result = toolkit.CopyForm(FirstPage: 0, LastPage: 0);
-                if (result != 1)
-                {
-                    WriteResult($"Error copying file: {result.ToString()}", toolkit);
-                    return;
-                }
-
                 // Close the new file to complete PDF creation
                 toolkit.CloseOutputFile();
             }
