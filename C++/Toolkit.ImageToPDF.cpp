@@ -24,36 +24,18 @@ int main(void)
             // Here you can place any code that will alter the output file
             // Such as adding security, setting page dimensions, etc.
 
-            // Create the new PDF file
-            long result = toolkitPtr->OpenOutputFile((strPath / "Toolkit.Output.pdf").c_str(), 0);
-            if (result == 0)
+            // Any supported image file can be converted to PDF with ImageToPDF
+            int result = toolkitPtr->ImageToPDF(
+                (strPath / "Toolkit.Input.jpg").c_str(),
+                (strPath / "Toolkit.ImageToPDF.pdf").c_str());
+            if (result != 1)
             {
-                // Open the template PDF
-                result = toolkitPtr->OpenInputFile((strPath / "Toolkit.Input.pdf").c_str());
-                if (result == 0)
-                {
-                    // Here you can call any Toolkit functions that will manipulate
-                    // the input file such as text and image stamping, form filling, etc.
-
-                    // Copy the template (with any changes) to the new file
-                    // Start page and end page, 0 = all pages
-                    result = toolkitPtr->CopyForm(0, 0);
-                    if (result != 1)
-                    {
-                        WriteResult("CopyForm", result, toolkitPtr);
-                    }
-
-                    // Close the new file to complete PDF creation
-                    toolkitPtr->CloseOutputFile();
-                }
-                else
-                {
-                    WriteResult("OpenInputFile", result, toolkitPtr);
-                }
+                WriteResult("ImageToPDF", result, toolkitPtr);
             }
             else
             {
-                WriteResult("OpenOutputFile", result, toolkitPtr);
+                // Close the new file to complete PDF creation
+                toolkitPtr->CloseOutputFile();
             }
         }
         else

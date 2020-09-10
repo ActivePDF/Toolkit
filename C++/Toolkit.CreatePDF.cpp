@@ -21,35 +21,35 @@ int main(void)
         HRESULT hr = toolkitPtr.CreateInstance("APToolkit.Object");
         if (SUCCEEDED(hr))
         {
-            // Here you can place any code that will alter the output file
-            // Such as adding security, setting page dimensions, etc.
-
-            // Create the new PDF file
-            long result = toolkitPtr->OpenOutputFile((strPath / "Toolkit.Output.pdf").c_str(), 0);
+            long result = toolkitPtr->OpenOutputFile((strPath / "Toolkit.NewPDF.pdf").c_str(), 0);
             if (result == 0)
-            {
-                // Open the template PDF
-                result = toolkitPtr->OpenInputFile((strPath / "Toolkit.Input.pdf").c_str());
-                if (result == 0)
-                {
-                    // Here you can call any Toolkit functions that will manipulate
-                    // the input file such as text and image stamping, form filling, etc.
+            {                
+                // Each time a new page is required call NewPage
+                toolkitPtr->NewPage(612.0f, 792.0f, 0);
 
-                    // Copy the template (with any changes) to the new file
-                    // Start page and end page, 0 = all pages
-                    result = toolkitPtr->CopyForm(0, 0);
-                    if (result != 1)
-                    {
-                        WriteResult("CopyForm", result, toolkitPtr);
-                    }
+                // Get the current version of Toolkit and save it to print on
+                // the PDF
+                _bstr_t toolkitVersion = toolkitPtr->ToolkitVersion;
 
-                    // Close the new file to complete PDF creation
-                    toolkitPtr->CloseOutputFile();
-                }
-                else
-                {
-                    WriteResult("OpenInputFile", result, toolkitPtr);
-                }
+                // Text can be added onto the new page with
+                // SetFont, PrintText and PrintMultilineText functions
+                toolkitPtr->SetFont("Helvetica", 24.0f, 0);
+                toolkitPtr->PrintText(72.0f, 720.0f, toolkitVersion, 0);
+
+                // Images can be added onto the new page with PrintImage,
+                // PrintJPEG and PrintTIFF
+                toolkitPtr->PrintJPEG(
+                    (strPath / "Toolkit.Input.jpg").c_str(),
+                    72.0f,
+                    300.0f,
+                    468.0f,
+                    400.0f,
+                    true,
+                    0,
+                    "");
+
+                // Close the new file to complete PDF creation
+                toolkitPtr->CloseOutputFile();
             }
             else
             {
