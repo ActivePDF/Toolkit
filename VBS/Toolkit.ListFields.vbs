@@ -18,6 +18,8 @@ If intResult = 0 Then
 	For i = 0 To oFields.Count - 1
 	   Set oFieldInstances = ofields.Item(i)
 	   For j = 0 To oFieldInstances.Count - 1
+	       ' List the fields for the input PDF. A list of available FieldInfo
+		   ' properties can be found in the online Toolkit SDK documentation.
 	       strFieldNames = strFieldNames & vbCrLf & oFieldInstances.Item(j).Name
 	   Next
 	Next

@@ -35,6 +35,9 @@ namespace ToolkitExamples
                 {
                     foreach (APToolkitNET.FieldInfo fieldInstance in fieldInstances.Fields)
                     {
+                        // List the fields for the input PDF. A list of
+                        // available FieldInfo properties can be found in the 
+                        // online Toolkit SDK documentation.
                         Console.WriteLine($"Field: {fieldInstance.Name}");
                     }
                 }
