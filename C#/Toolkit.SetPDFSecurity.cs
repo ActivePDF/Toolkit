@@ -19,7 +19,7 @@ namespace ToolkitExamples
             string toolkitPath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles)}\ActivePDF\Toolkit\bin\x64";
 
             // Instantiate Object
-            using (APToolkitNET.Toolkit toolkit = new APToolkitNET.Toolkit(toolkitPath))
+            using (APToolkitNET.Toolkit toolkit = new APToolkitNET.Toolkit(CoreLibPath: toolkitPath))
             {
                 // Here you can place any code that will alter the output file
                 // Such as adding security, setting page dimensions, etc.
@@ -27,38 +27,53 @@ namespace ToolkitExamples
                 // Add AES 256 bit encryption to the output PDF. Toolkit also
                 // supports RC4 40 bit, RC4 128 bit and AES 128 bit.
                 // 'DEMO' is appended to the start of the password with the evaluation version
-                toolkit.SetPDFSecurity(5, "UserPassword", "OwnerPassword", true, false, true, false, true, false, true, false);
+                toolkit.SetPDFSecurity(
+                    nEncrLevel: 5,
+                    UserPassword: "UserPassword",
+                    OwnerPassword: "OwnerPassword",
+                    CanPrint: true,
+                    CanEdit: false,
+                    CanCopy: true,
+                    CanModify: false,
+                    CanFillInFormFields: true,
+                    CanMakeAccessible: false,
+                    CanAssemble: true,
+                    CanReproduce: false);
 
                 // Create the new PDF file
-                int result = toolkit.OpenOutputFile($"{strPath}Toolkit.SetPDFSecurity.pdf");
-                if (result != 0)
+                int result = toolkit.OpenOutputFile(FileName: $"{strPath}Toolkit.SetPDFSecurity.pdf");
+                if (result == 0)
+                {
+                    // Open the template PDF
+                    result = toolkit.OpenInputFile(InputFileName: $"{strPath}Toolkit.Input.pdf");
+                    if (result == 0)
+                    {
+                        // Here you can call any Toolkit functions that will manipulate
+                        // the input file such as text and image stamping, form filling, etc.
+
+                        // Copy the template (with any changes) to the new file
+                        // Start page and end page, 0 = all pages
+                        result = toolkit.CopyForm(FirstPage: 0, LastPage: 0);
+                        if (result != 1)
+                        {
+                            WriteResult($"Error copying file: {result.ToString()}", toolkit);
+                            return;
+                        }
+
+                        // Close the new file to complete PDF creation
+                        toolkit.CloseOutputFile();
+                    }
+                    else
+                    {
+                        WriteResult($"Error opening input file: {result.ToString()}", toolkit);
+                        return;
+                    }
+                }
+                else
                 {
                     WriteResult($"Error opening output file: {result.ToString()}", toolkit);
                     return;
                 }
-
-                // Open the template PDF
-                result = toolkit.OpenInputFile($"{strPath}Toolkit.Input.pdf");
-                if (result != 0)
-                {
-                    WriteResult($"Error opening input file: {result.ToString()}", toolkit);
-                    return;
-                }
-
-                // Here you can call any Toolkit functions that will manipulate
-                // the input file such as text and image stamping, form filling, etc.
-
-                // Copy the template (with any changes) to the new file
-                // Start page and end page, 0 = all pages
-                result = toolkit.CopyForm(0, 0);
-                if (result != 1)
-                {
-                    WriteResult($"Error copying file: {result.ToString()}", toolkit);
-                    return;
-                }
-
-                // Close the new file to complete PDF creation
-                toolkit.CloseOutputFile();
             }
 
             // Process Complete

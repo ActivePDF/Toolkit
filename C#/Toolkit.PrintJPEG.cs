@@ -18,28 +18,35 @@ namespace ToolkitExamples
             // (Use x86 in the path for 32b applications)
             string toolkitPath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles)}\ActivePDF\Toolkit\bin\x64";
 
-            using (APToolkitNET.Toolkit toolkit = new APToolkitNET.Toolkit(toolkitPath))
+            using (APToolkitNET.Toolkit toolkit = new APToolkitNET.Toolkit(CoreLibPath: toolkitPath))
             {
                 // Here you can place any code that will alter the output file
                 // Such as adding security, setting page dimensions, etc.
 
                 // Create the new PDF file
-                int result = toolkit.OpenOutputFile($"{strPath}Toolkit.PrintJPEG.pdf");
+                int result = toolkit.OpenOutputFile(FileName: $"{strPath}Toolkit.PrintJPEG.pdf");
                 if (result == 0)
                 {
                     // Open the template PDF
-                    result = toolkit.OpenInputFile($"{strPath}Toolkit.Input.pdf");
+                    result = toolkit.OpenInputFile(InputFileName: $"{strPath}Toolkit.Input.pdf");
                     if (result == 0)
                     {
-                        // Print the JPEG to the PDF
-                        toolkit.PrintJPEG($"{strPath}Toolkit.Input.jpg", 05.0f, 350.0f, 0.0f, 0.0f, true, -1);
-
                         // Here you can call any Toolkit functions that will manipulate
                         // the input file such as text and image stamping, form filling, etc.
 
+                        // Print the JPEG to the PDF
+                        toolkit.PrintJPEG(
+                            FileName: $"{strPath}Toolkit.Input.jpg",
+                            X: 05.0f,
+                            Y: 600.0f,
+                            Width: 200.0f,
+                            Height: 1000.0f,
+                            PersistRatio: true,
+                            PageNumber: -1);
+
                         // Copy the template (with any changes) to the new file
                         // Start page and end page, 0 = all pages
-                        result = toolkit.CopyForm(0, 0);
+                        result = toolkit.CopyForm(FirstPage: 0, LastPage: 0);
                         if (result != 1)
                         {
                             WriteResult($"Error copying file: {result.ToString()}", toolkit);

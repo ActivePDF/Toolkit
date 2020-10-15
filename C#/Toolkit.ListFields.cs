@@ -19,10 +19,10 @@ namespace ToolkitExamples
             string toolkitPath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles)}\ActivePDF\Toolkit\bin\x64";
 
             // Instantiate Object
-            using (APToolkitNET.Toolkit toolkit = new APToolkitNET.Toolkit(toolkitPath))
+            using (APToolkitNET.Toolkit toolkit = new APToolkitNET.Toolkit(CoreLibPath: toolkitPath))
             {
                 // Open the template PDF
-                short result = toolkit.OpenInputFile($"{strPath}Toolkit.Input.pdf");
+                short result = toolkit.OpenInputFile(InputFileName: $"{strPath}Toolkit.Input.pdf");
                 if (result != 0)
                 {
                     WriteResult($"Error opening input file: {result.ToString()}", toolkit);
@@ -35,10 +35,7 @@ namespace ToolkitExamples
                 {
                     foreach (APToolkitNET.FieldInfo fieldInstance in fieldInstances.Fields)
                     {
-                        // List the fields for the input PDF. A list of
-                        // available FieldInfo properties can be found in the 
-                        // online Toolkit SDK documentation.
-                        Console.WriteLine($"Field: {fieldInstance.Name}");
+                        WriteFieldInfo(FieldInfo: fieldInstance);
                     }
                 }
 
@@ -47,6 +44,20 @@ namespace ToolkitExamples
             }
 
             WriteResult("Success!");
+        }
+
+        // List the fields for the input PDF. A list of available FieldInfo
+        // properties can be found in the online Toolkit SDK documentation.
+        public static void WriteFieldInfo(APToolkitNET.FieldInfo FieldInfo)
+        {
+            if (FieldInfo != null)
+            {
+                Console.WriteLine($"Field: {FieldInfo.Name}");
+                Console.WriteLine($"  Width: {FieldInfo.Width}");
+                Console.WriteLine($"  Height: {FieldInfo.Height}");
+                Console.WriteLine($"  Lower Left Coordinate: ({FieldInfo.Left}, {FieldInfo.Bottom})");
+                Console.WriteLine();
+            }
         }
 
         public static void WriteResult(string result, APToolkitNET.Toolkit toolkit = null)

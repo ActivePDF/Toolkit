@@ -19,38 +19,40 @@ namespace ToolkitExamples
             string toolkitPath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles)}\ActivePDF\Toolkit\bin\x64";
 
             // Instantiate Object
-            using (APToolkitNET.Toolkit toolkit = new APToolkitNET.Toolkit(toolkitPath))
+            using (APToolkitNET.Toolkit toolkit = new APToolkitNET.Toolkit(CoreLibPath: toolkitPath))
             {
                 // Open the template PDF
                 int result = toolkit.OpenInputFile(InputFileName: $"{strPath}Toolkit.Input.pdf");
-                if (result != 0)
+                if (result == 0)
+                {
+                    // Get the reference to the InitialViewInfo object
+                    APToolkitNET.InitialViewInfo viewInfo = toolkit.GetInitialViewInfo();
+
+                    // Options for viewer window
+                    Console.WriteLine($"Center Window: {viewInfo.CenterWindow}");
+                    Console.WriteLine($"Full Screen: {viewInfo.FullScreen}");
+                    Console.WriteLine($"Resize Window: {viewInfo.ResizeWindow}");
+                    Console.WriteLine($"Show: {viewInfo.Show}");
+
+                    // Show or hide UI elements of the viewer
+                    Console.WriteLine($"Hide Menu Bar: {viewInfo.HideMenuBar}");
+                    Console.WriteLine($"Hide Tool Bars: {viewInfo.HideToolBars}");
+                    Console.WriteLine($"Hide Window Controls: {viewInfo.HideWindowControls}");
+                    Console.WriteLine($"Navigation Tab: {viewInfo.NavigationTab}");
+
+                    // Page settings
+                    Console.WriteLine($"Magnification: {viewInfo.Magnification}");
+                    Console.WriteLine($"Open To Page: {viewInfo.OpenToPage}");
+                    Console.WriteLine($"Page Layout: {viewInfo.PageLayout}");
+
+                    // Close the input file
+                    toolkit.CloseInputFile();
+                }
+                else
                 {
                     WriteResult($"Error opening input file: {result.ToString()}", toolkit);
                     return;
                 }
-
-                // Get the reference to the InitialViewInfo object
-                APToolkitNET.InitialViewInfo viewInfo = toolkit.GetInitialViewInfo();
-
-                // Options for viewer window
-                Console.WriteLine($"Center Window: {viewInfo.CenterWindow}");
-                Console.WriteLine($"Full Screen: {viewInfo.FullScreen}");
-                Console.WriteLine($"Resize Window: {viewInfo.ResizeWindow}");
-                Console.WriteLine($"Show: {viewInfo.Show}");
-
-                // Show or hide UI elements of the viewer
-                Console.WriteLine($"Hide Menu Bar: {viewInfo.HideMenuBar}");
-                Console.WriteLine($"Hide Tool Bars: {viewInfo.HideToolBars}");
-                Console.WriteLine($"Hide Window Controls: {viewInfo.HideWindowControls}");
-                Console.WriteLine($"Navigation Tab: {viewInfo.NavigationTab}");
-
-                // Page settings
-                Console.WriteLine($"Magnification: {viewInfo.Magnification}");
-                Console.WriteLine($"Open To Page: {viewInfo.OpenToPage}");
-                Console.WriteLine($"Page Layout: {viewInfo.PageLayout}");
-
-                // Close the input file
-                toolkit.CloseInputFile();
             }
 
             // Process Complete

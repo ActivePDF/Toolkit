@@ -32,16 +32,21 @@ namespace ToolkitExamples
                     result = toolkit.OpenInputFile(InputFileName: $"{strPath}Toolkit.Input.pdf");
                     if (result == 0)
                     {
+                        // Here you can call any Toolkit functions that will manipulate
+                        // the input file such as text and image stamping, form filling, etc.
+
                         // Add a watermark
                         string stampText = "WATERMARK";
-                        toolkit.SetFont(FontName: "Helvetica",
-                                        FontSize: 72,
-                                        PageNumber: -1);
-                        toolkit.SetTextColor(AmountRed: 168,
-                                             AmountGreen: 0,
-                                             AmountBlue: 0,
-                                             AmountGrey: 0,
-                                             PageNumber: -1);
+                        toolkit.SetFont(
+                            FontName: "Helvetica",
+                            FontSize: 72,
+                            PageNumber: -1);
+                        toolkit.SetTextColor(
+                            AmountRed: 168,
+                            AmountGreen: 0,
+                            AmountBlue: 0,
+                            AmountGrey: 0,
+                            PageNumber: -1);
                         toolkit.PrintText(
                             X: (612 - toolkit.GetTextWidth(stampText)) / 2,
                             Y: (792 - toolkit.GetTextHeight(stampText)) / 2,

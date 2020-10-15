@@ -19,7 +19,7 @@ namespace ToolkitExamples
             string toolkitPath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles)}\ActivePDF\Toolkit\bin\x64";
 
             // Instantiate Object
-            using (APToolkitNET.Toolkit toolkit = new APToolkitNET.Toolkit(toolkitPath))
+            using (APToolkitNET.Toolkit toolkit = new APToolkitNET.Toolkit(CoreLibPath: toolkitPath))
             {
                 // Set the PDF page Height and Width (72 = 1")
                 toolkit.OutputPageHeight = 792.0f;

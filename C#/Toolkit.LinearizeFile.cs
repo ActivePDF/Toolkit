@@ -19,11 +19,14 @@ namespace ToolkitExamples
             string toolkitPath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles)}\ActivePDF\Toolkit\bin\x64";
 
             // Instantiate Object
-            using (APToolkitNET.Toolkit toolkit = new APToolkitNET.Toolkit(toolkitPath))
+            using (APToolkitNET.Toolkit toolkit = new APToolkitNET.Toolkit(CoreLibPath: toolkitPath))
             {
-                if (!toolkit.IsFileLinearized($"{strPath}Toolkit.Input.pdf"))
+                if (!toolkit.IsFileLinearized(FileName: $"{strPath}Toolkit.Input.pdf"))
                 {
-                    int result = toolkit.LinearizeFile($"{strPath}Toolkit.Input.pdf", $"{strPath}Toolkit.Linearized.pdf", "");
+                    int result = toolkit.LinearizeFile(
+                        InputFileName: $"{strPath}Toolkit.Input.pdf",
+                        OutputFileName: $"{strPath}Toolkit.Linearized.pdf",
+                        UserPassword: "");
                     if (result != 0)
                     {
                         WriteResult("Failed to linearize the input file.", toolkit);

@@ -10,11 +10,21 @@ namespace ToolkitExamples
         {
             string strPath = System.AppDomain.CurrentDomain.BaseDirectory;
 
+            // Starting with Toolkit version 10 native DLLs are no longer
+            // copied to the system folder. The Toolkit constructor must
+            // be called with the path to the native DLLs or place them
+            // in your applications working directory. This example
+            // assumes they are located in the default installation folder.
+            // (Use x86 in the path for 32b applications)
+            string toolkitPath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles)}\ActivePDF\Toolkit\bin\x64";
+
             // Instantiate Object
-            using (APToolkitNET.Toolkit toolkit = new APToolkitNET.Toolkit())
+            using (APToolkitNET.Toolkit toolkit = new APToolkitNET.Toolkit(CoreLibPath: toolkitPath))
             {
                 // Any supported image file can be converted to PDF with ImageToPDF
-                int result = toolkit.ImageToPDF(strPath + "Toolkit.Input.jpg", strPath + "Toolkit.ImageToPDF.pdf");
+                int result = toolkit.ImageToPDF(
+                    ImageFileName: strPath + "Toolkit.Input.jpg",
+                    PDFFileName: strPath + "Toolkit.ImageToPDF.pdf");
                 if (result != 1)
                 {
                     WriteResult($"Error converting image to PDF: {result.ToString()}", toolkit);

@@ -22,10 +22,10 @@ namespace Toolkit_Examples
             string toolkitPath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles)}\ActivePDF\Toolkit\bin\x64";
 
             // Instantiate Object
-            using (APToolkitNET.Toolkit toolkit = new APToolkitNET.Toolkit(toolkitPath))
+            using (APToolkitNET.Toolkit toolkit = new APToolkitNET.Toolkit(CoreLibPath: toolkitPath))
             {
                 // Retrieves the number of pages for the specified PDF file.
-                int numPages = toolkit.NumPages(inputFile);
+                int numPages = toolkit.NumPages(FileName: inputFile);
                 if (numPages == 0)
                 {
                     WriteResult($"Error getting input file page count: {numPages.ToString()}", toolkit);
@@ -39,42 +39,44 @@ namespace Toolkit_Examples
                 toolkit.CloseInputFile();
 
                 // Create the new PDF file
-                int result = toolkit.OpenOutputFile($"{strPath}Toolkit.StitchPDF.pdf");
-                if (result != 0)
+                int result = toolkit.OpenOutputFile(FileName: $"{strPath}Toolkit.StitchPDF.pdf");
+                if (result == 0)
+                {
+                    // Using the default PDF width and height of 612/792
+                    float pageWidth = 612.0f, pageHeight = 792.0f;
+
+                    // The width and height of each page from the original PDF
+                    // added to the output file.
+                    float width = pageWidth / pagesPerRow, height = pageHeight / pagesPerRow;
+
+                    // The rows of images from the original PDF added to the new
+                    // document.
+                    int numRows = Convert.ToInt32(Math.Ceiling(pageHeight / height));
+
+                    for (int i = 1; i < numRows; ++i)
+                    {
+                        for (int j = 0; j < pagesPerRow; ++j)
+                        {
+                            // Add the page from the original PDF to the output.
+                            toolkit.StitchPDF(
+                                FileName: inputFile,
+                                PageNumber: i + j,
+                                X: width * j,
+                                Y: pageHeight - (height * i),
+                                Width: width,
+                                Height: height,
+                                Rotation: 0);
+                        }
+                    }
+
+                    // Close the new file to complete PDF creation
+                    toolkit.CloseOutputFile();
+                }
+                else
                 {
                     WriteResult($"Error opening output file: {result.ToString()}", toolkit);
                     return;
                 }
-
-                // Using the default PDF width and height of 612/792
-                float pageWidth = 612.0f, pageHeight = 792.0f;
-
-                // The width and height of each page from the original PDF
-                // added to the output file.
-                float width = pageWidth / pagesPerRow, height = pageHeight / pagesPerRow;
-
-                // The rows of images from the original PDF added to the new
-                // document.
-                int numRows = Convert.ToInt32(Math.Ceiling(pageHeight / height));
-
-                for (int i = 1; i < numRows; ++i)
-                {
-                    for (int j = 0; j < pagesPerRow; ++j)
-                    {
-                        // Add the page from the original PDF to the output.
-                        toolkit.StitchPDF(
-                        FileName: inputFile,
-                        PageNumber: i + j,
-                        X: width * j,
-                        Y: pageHeight - (height * i),
-                        Width: width,
-                        Height: height,
-                        Rotation: 0);
-                    }
-                }
-
-                // Close the new file to complete PDF creation
-                toolkit.CloseOutputFile();
             }
 
             // Process Complete

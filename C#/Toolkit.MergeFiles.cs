@@ -22,25 +22,27 @@ namespace ToolkitExamples
             string[] pdfFiles = System.IO.Directory.GetFiles(strPath, "*.pdf");
 
             // Instantiate Object
-            using (APToolkitNET.Toolkit toolkit = new APToolkitNET.Toolkit(toolkitPath))
+            using (APToolkitNET.Toolkit toolkit = new APToolkitNET.Toolkit(CoreLibPath: toolkitPath))
             {
                 // Create the new PDF file
                 int result = toolkit.OpenOutputFile(FileName: $"{strPath}Toolkit.MergeFiles.pdf");
-                if (result != 0)
+                if (result == 0)
+                {
+                    result = toolkit.MergeFiles(Files: pdfFiles);
+                    if (result != 1)
+                    {
+                        WriteResult($"MergeFiles failed: {result}", toolkit);
+                        return;
+                    }
+
+                    // Close the new file to complete PDF creation
+                    toolkit.CloseOutputFile();
+                }
+                else
                 {
                     WriteResult($"Error opening output file: {result.ToString()}", toolkit);
                     return;
                 }
-
-                result = toolkit.MergeFiles(Files: pdfFiles);
-                if (result != 1)
-                {
-                    WriteResult($"MergeFiles failed: {result}", toolkit);
-                    return;
-                }
-
-                // Close the new file to complete PDF creation
-                toolkit.CloseOutputFile();
             }
 
             // Process Complete

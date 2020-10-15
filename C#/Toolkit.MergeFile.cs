@@ -19,35 +19,43 @@ namespace ToolkitExamples
             string toolkitPath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles)}\ActivePDF\Toolkit\bin\x64";
 
             // Instantiate Object
-            using (APToolkitNET.Toolkit toolkit = new APToolkitNET.Toolkit(toolkitPath))
+            using (APToolkitNET.Toolkit toolkit = new APToolkitNET.Toolkit(CoreLibPath: toolkitPath))
             {
                 // Here you can place any code that will alter the output file
                 // Such as adding security, setting page dimensions, etc.
 
                 // Create the new PDF file
-                int result = toolkit.OpenOutputFile($"{strPath}Toolkit.MergeFile.pdf");
-                if (result != 0)
+                int result = toolkit.OpenOutputFile(FileName: $"{strPath}Toolkit.MergeFile.pdf");
+                if (result == 0)
+                {
+                    // Merge the input file
+                    result = toolkit.MergeFile(
+                        FileName: $"{strPath}Toolkit.Input.pdf",
+                        StartPage: 0,
+                        EndPage: 0);
+                    if (result != 1)
+                    {
+                        WriteResult($"Error merging first input file: {result.ToString()}", toolkit);
+                    }
+
+                    // Merge the input file
+                    result = toolkit.MergeFile(
+                        FileName: $"{strPath}Toolkit.Input.pdf",
+                        StartPage: 0,
+                        EndPage: 0);
+                    if (result != 1)
+                    {
+                        WriteResult($"Error merging second input file: {result.ToString()}", toolkit);
+                    }
+
+                    // Close the new file to complete PDF creation
+                    toolkit.CloseOutputFile();
+                }
+                else
                 {
                     WriteResult($"Error opening output file: {result.ToString()}", toolkit);
                     return;
                 }
-
-                // Merge the input file
-                result = toolkit.MergeFile($"{strPath}Toolkit.Input.pdf", 0, 0);
-                if (result != 1)
-                {
-                    WriteResult($"Error merging first input file: {result.ToString()}", toolkit);
-                }
-
-                // Merge the input file
-                result = toolkit.MergeFile($"{strPath}Toolkit.Input.pdf", 0, 0);
-                if (result != 1)
-                {
-                    WriteResult($"Error merging second input file: {result.ToString()}", toolkit);
-                }
-
-                // Close the new file to complete PDF creation
-                toolkit.CloseOutputFile();
             }
 
             // Process Complete
