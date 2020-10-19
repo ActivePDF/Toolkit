@@ -27,6 +27,9 @@ namespace ToolkitExamples
                 // Remove attachments from the output PDF.
                 compressor.DiscardAttachments = true;
 
+                // Here you can place any code that will alter the output file
+                // such as adding security, setting page dimensions, etc.
+
                 // Create the new PDF file
                 int result = toolkit.OpenOutputFile($"{strPath}Toolkit.DiscardAttachmentss.pdf");
                 if (result == 0)
@@ -35,6 +38,9 @@ namespace ToolkitExamples
                     result = toolkit.OpenInputFile($"{strPath}Toolkit.Input.pdf");
                     if (result == 0)
                     {
+                        // Here you can call any Toolkit functions that will manipulate
+                        // the input file such as text and image stamping, form filling, etc.
+
                         // Copy the template (with any changes) to the new file
                         // Start page and end page, 0 = all pages
                         result = toolkit.CopyForm(0, 0);
