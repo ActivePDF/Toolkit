@@ -17,7 +17,7 @@ Set oCompressor = oTK.GetCompressor
 oCompressor.DiscardMetadata = True
 
 ' Create the new PDF file
-intResult = oTK.OpenOutputFile(strPath & "Toolkit.DiscardFormFields.pdf")
+intResult = oTK.OpenOutputFile(strPath & "Toolkit.DiscardMetadata.pdf")
 If intResult = 0 Then
     ' Open the template PDF
     intResult = oTK.OpenInputFile(strPath & "Toolkit.Input.pdf")
