@@ -1,5 +1,4 @@
 ' Copyright (c) 2019 ActivePDF, Inc.
-
 Dim FSO, strPath, intResult
 
 ' Get current path
@@ -20,9 +19,20 @@ If intResult = 0 Then
     intResult = oTK.OpenInputFile(strPath & "Toolkit.Input.pdf")
     If intResult = 0 Then        
         ' Use the Header Image properties to add some images to the footer
-        oTK.SetHeaderImage strPath & "Toolkit.Input.bmp", 375.0, 53.0, 0.0, 0.0, true
-        oTK.SetHeaderJPEG strPath & "Toolkit.Input.jpg", 436.0, 49.0, 0.0, 0.0, true
-        oTK.SetHeaderTIFF strPath & "Toolkit.Input.tif", 500.0, 55.0, 0.0, 0.0, true
+        intResult = oTK.SetHeaderImage(strPath & "Toolkit.Input.bmp", 10.0, 692.0, 200.0, 100.0, False)
+		If intResult <> 1 Then
+		    WriteResult "SetHeaderImage", intResult
+		End If
+		
+        intResult = oTK.SetHeaderJPEG(strPath & "Toolkit.Input.jpg", 20.0, 592.0, 200.0, 100.0, False)
+		If intResult <> 1 Then
+		    WriteResult "SetHeaderJPEG", intResult
+		End If
+		
+        intResult = oTK.SetHeaderTIFF(strPath & "Toolkit.Input.tif", 30.0, 492.0, 200.0, 100.0, False)
+		If intResult <> 1 Then
+		    WriteResult "SetHeaderTIFF", intResult
+		End If
 
         ' Copy the template (with any changes) to the new file
         ' Start page and end page, 0 = all pages 

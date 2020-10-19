@@ -48,8 +48,8 @@ namespace ToolkitExamples
                         // Close the new file to complete PDF creation
                         toolkit.CloseOutputFile();
 
-                        // Here is the output byte stream.
-                        string outputPDF = toolkit.OutputByteStream;
+                        // Here is the output byte array.
+                        Byte[] outputPDF = toolkit.OutputByteArray;
 
                         // Or save the output to disk
                         result = toolkit.SaveMemoryToDisk(FileName: $"{strPath}Toolkit.AllInMemory.pdf");

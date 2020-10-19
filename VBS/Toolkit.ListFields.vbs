@@ -11,7 +11,6 @@ Set oTK = CreateObject("APToolkit.Object")
 
 ' Here you can place any code that will alter the output file
 ' Such as adding security, setting page dimensions, etc.
-strFieldNames = ""
 intResult = oTK.OpenInputFile(strPath & "Toolkit.Input.pdf")
 If intResult = 0 Then
 	Set oFields = oTK.GetInputFields()
@@ -20,10 +19,10 @@ If intResult = 0 Then
 	   For j = 0 To oFieldInstances.Count - 1
 	       ' List the fields for the input PDF. A list of available FieldInfo
 		   ' properties can be found in the online Toolkit SDK documentation.
-	       strFieldNames = strFieldNames & vbCrLf & oFieldInstances.Item(j).Name
+		   WriteFieldInfo oFieldInstances.Item(j)
+	       'strFieldNames = strFieldNames & vbCrLf & oFieldInstances.Item(j).Name
 	   Next
 	Next
-	Wscript.Echo("Fields: " & strFieldNames)
 Else
 	WriteResult "OpenInputFile", intResult
 End If
@@ -35,6 +34,15 @@ oTK.CloseOutputFile
 Set oTK = Nothing
 
 MsgBox "Success!"
+
+' List the fields for the input PDF. A list of available FieldInfo
+' properties can be found in the online Toolkit SDK documentation.
+Sub WriteFieldInfo(fieldInfo)
+    fieldString = "Field: " & fieldInfo.Name & vbCrLf
+	fieldString = fieldString & "  Width: " & fieldInfo.Width & vbCrLf
+	fieldString = fieldString & "  height: " & fieldInfo.Height & vbCrLf
+	WScript.Echo(fieldString)
+End Sub
 
 ' Error Handling
 Sub WriteResult(method, outputCode)

@@ -1,5 +1,4 @@
 ' Copyright (c) 2019 ActivePDF, Inc.
-
 Dim FSO, strPath, intResult
 
 ' Get current path
@@ -19,6 +18,9 @@ If intResult = 0 Then
     ' Open the template PDF
     intResult = oTK.OpenInputFile(strPath & "Toolkit.Input.pdf")
     If intResult = 0 Then
+        ' Here you can call any Toolkit functions that will manipulate
+        ' the input file such as text and image stamping, form filling, etc.
+
         ' Add a comment to first page of the input PDF
         oTK.AddComment 72.0, 660.0, 144.0, 100.0, _
             "Adds a note comment with a signifying icon. The icon alerts the reader's attention to the noted area for the signified purpose.", _

@@ -1,5 +1,4 @@
 ' Copyright (c) 2019 ActivePDF, Inc.
-
 Dim FSO, strPath, intResult
 
 ' Get current path
@@ -25,7 +24,7 @@ If intResult = 0 Then
             return
         Else
             ' Loop through all pages of the input file
-            For currentPage = 1 to totalPages            
+            For currentPage = 1 to totalPages   
                 ' Get the current page width, height and rotation
                 pageRotation = oTK.GetInputPageRotation(currentPage)
                 getBoundingBox = oTK.GetBoundingBox("", currentPage)
@@ -40,8 +39,8 @@ If intResult = 0 Then
 
                 ' Depending on the rotation of the page, adjust coordinates
                 ' This only accounts for rotations of 0, 90, 180, 270
-                xCoord = 5
-                yCoord = 48
+                xCoord = 288
+                yCoord = 72
 
                 Select Case pageRotation
                     Case 0
@@ -58,10 +57,7 @@ If intResult = 0 Then
                 End Select
 
                 ' Add the text stamp
-                oTK.PrintText xCoord, yCoord, "Confidential", currentPage
-
-                ' Move to the next page
-                currentPage = currentPage + 1
+                oTK.PrintText xCoord, yCoord, "Confidential", currentPage			
             Next
         End If
 

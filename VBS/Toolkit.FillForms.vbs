@@ -1,5 +1,4 @@
 ' Copyright (c) 2019 ActivePDF, Inc.
-
 Dim FSO, strPath, intResult
 
 ' Get current path
@@ -34,24 +33,6 @@ If intResult = 0 Then
         ' Populate form fields for the first page with data
         ' Refer to the documentation for possible flag options
         oTK.SetFormFieldData "Text1", "This text field's content was updated using ActivePDF Toolkit.", 1
-
-        ' Copy the template (with any changes) to the new file
-        ' Start page and end page, 0 = all pages 
-        intResult = oTK.CopyForm(0, 0)
-        If intResult <> 1 Then
-            WriteResult "CopyForm", intResult
-        End If
-
-        ' Use ResetFormFields to clear the form data we previously
-        ' used
-        oTK.ResetFormFields
-
-        ' Populate form fields for the second page with data
-        oTK.SetFormFieldData "Text1", "This second text field's content was updated using ActivePDF Toolkit.", 1
-
-        ' Set whether to flatten all other fields not touched by
-        ' SetFormFieldData
-        oTK.FlattenRemainingFormFields = 1
 
         ' Copy the template (with any changes) to the new file
         ' Start page and end page, 0 = all pages 

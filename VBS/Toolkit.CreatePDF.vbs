@@ -1,5 +1,4 @@
 ' Copyright (c) 2019 ActivePDF, Inc.
-
 Dim FSO, strPath, intResult
 
 ' Get current path

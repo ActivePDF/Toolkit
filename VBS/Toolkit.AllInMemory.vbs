@@ -1,5 +1,4 @@
 ' Copyright (c) 2019 ActivePDF, Inc.
-
 Dim FSO, strPath, intResult
 
 ' Get current path
@@ -21,8 +20,12 @@ If intResult = 0 Then
             WriteResult "CopyForm", intResult
         End If
         oTK.CloseOutputFile
-        inputFileStream = oTK.OutputByteStream
+        inputByteArray = oTK.OutputByteArray
+	Else
+		WriteResult "OpenInputFile", intResult
     End If
+Else
+    WriteResult "OpenOutputFile", intResult
 End If
 
 ' Create the new PDF file
@@ -30,7 +33,7 @@ intResult = oTK.OpenOutputFile("MEMORY")
 If intResult = 0 Then
 
     ' Set the input byte array
-    oTK.InputByteStream = inputFileStream
+    oTK.InputByteStream = inputByteArray
 
     ' Open the template PDF
     intResult = oTK.OpenInputFile("MEMORY")
