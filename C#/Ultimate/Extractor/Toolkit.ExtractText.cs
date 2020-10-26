@@ -38,7 +38,7 @@ namespace ToolkitUltimate_Examples
                         {
                             Console.WriteLine($"Writing full document text to: {fileName}");
                             System.IO.File.WriteAllText(
-                                $"{System.IO.Directory.GetCurrentDirectory()}\\{fileName}",
+                                $"{strPath}\\{fileName}",
                                 extractedText);
 
                             // Get the number of pages in the input PDF
@@ -47,6 +47,7 @@ namespace ToolkitUltimate_Examples
                             // Extract Text by Page
                             for (int i = 1; i <= numPages; i++)
                             {
+                                Console.WriteLine($"Writing page {i} text to: {fileName}");
                                 fileName = $"{System.IO.Path.GetRandomFileName()}_Page{i}.txt";
                                 extractedText = extractor.ExtractText(i);
                                 System.IO.File.WriteAllText(
@@ -61,7 +62,7 @@ namespace ToolkitUltimate_Examples
                     }
                     catch (Exception e)
                     {
-                        Console.WriteLine($"Exception caught creating image file ({fileName}): {e.Message}");
+                        Console.WriteLine($"Exception caught creating text file ({fileName}): {e.Message}");
                     }
 
                     // Close the new file to complete PDF creation
