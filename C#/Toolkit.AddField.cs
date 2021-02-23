@@ -30,18 +30,50 @@ namespace ToolkitExamples
                 if (result == 0)
                 {
                     // Open the template PDF
-                    result = toolkit.OpenInputFile(InputFileName: $"{strPath}Toolkit.Input.pdf");
+                    result = toolkit.OpenInputFile(InputFileName: $"{strPath}blank.pdf");
                     if (result == 0)
                     {
                         // Here you can call any Toolkit functions that will manipulate
                         // the input file such as text and image stamping, form filling, etc.
 
                         // Add a new button form to the first page.
-                        APToolkitNET.FieldInfo fieldInfo = toolkit.AddField(1, 3, "TEST_BUTTON", 200, 600, 85, 25, "Helvetica", 10);
+                        APToolkitNET.FieldInfo fieldInfo = toolkit.AddField(1, 3, "TEST_BUTTON", 72, 750, 85, 25, "Helvetica", 10);
 
-                        // Set the field properties with the AddField FieldInfo result object.
+                        // Set the field properties with the AddField FieldInfo result object
+                        // and add a simple JavaScript to execute when clicked.
                         fieldInfo.ButtonTextNormal = "TEST BUTTON";
-                        fieldInfo.
+                        fieldInfo.MouseDownScript = "app.alert(\"Hello World\", 3);";
+
+                        // Add A DropDown with list items
+                        fieldInfo = toolkit.AddField(1, 6, "TEST_DROPDOWN", 72, 700, 85, 25, "Helvetica", 10);
+                        APToolkitNET.ListItems fieldListItems = fieldInfo.ListItems();
+                        fieldListItems.AddNew("FirstItem", "FirstItemValue");
+                        fieldListItems.AddNew("SecondItem", "SecondItemValue");
+                        fieldListItems.AddNew("ThirdItem", "ThirdItemValue");
+
+                        // Add a Checkbox and use SetFormFieldData to mark checked
+                        fieldInfo = toolkit.AddField(1, 4, "TEST_CHECKBOX", 72, 650, 25, 25, "Helvetica", 10);
+                        toolkit.SetFormFieldData("TEST_CHECKBOX", "On", 1);
+
+                        // Add a Radio Button Group
+                        fieldInfo = toolkit.AddField(1, 5, "TEST_RADIOGROUP", 72, 600, 25, 25, "Helvetica", 10);
+                        fieldInfo.ExportValue = "One";
+                        fieldInfo = toolkit.AddField(1, 5, "TEST_RADIOGROUP", 72, 625, 25, 25, "Helvetica", 10);
+                        fieldInfo.ExportValue = "Two";
+                        fieldInfo = toolkit.AddField(1, 5, "TEST_RADIOGROUP", 72, 650, 25, 25, "Helvetica", 10);
+                        fieldInfo.ExportValue = "Three";
+                        fieldInfo.RadiosInUnison = false;
+
+                        // Add a text field and set it's default value.
+                        fieldInfo = toolkit.AddField(1, 1, "TEST_TEXTFIELD", 72, 550, 140, 25, "Helvetica", 10);
+                        fieldInfo.DefaultValue = "Made by ActivePDF Toolkit!";
+
+                        // Add a list box
+                        fieldInfo = toolkit.AddField(1, 7, "TEST_LISTBOX", 72, 450, 85, 50, "Helvetica", 10);
+                        fieldListItems = fieldInfo.ListItems();
+                        fieldListItems.AddNew("FirstItem", "FirstItemValue");
+                        fieldListItems.AddNew("SecondItem", "SecondItemValue");
+                        fieldListItems.AddNew("ThirdItem", "ThirdItemValue");
 
                         // Copy the template (with any changes) to the new file
                         // Start page and end page, 0 = all pages
