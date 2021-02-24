@@ -36,13 +36,17 @@ namespace ToolkitExamples
                         // Here you can call any Toolkit functions that will manipulate
                         // the input file such as text and image stamping, form filling, etc.
 
-                        // Add a new button form to the first page.
+                        // Add a new button form to the first page that executes a simple
+                        // JavaScript alert.
                         APToolkitNET.FieldInfo fieldInfo = toolkit.AddField(1, 3, "TEST_BUTTON", 72, 750, 85, 25, "Helvetica", 10);
-
-                        // Set the field properties with the AddField FieldInfo result object
-                        // and add a simple JavaScript to execute when clicked.
                         fieldInfo.ButtonTextNormal = "TEST BUTTON";
                         fieldInfo.MouseDownScript = "app.alert(\"Hello World\", 3);";
+
+                        // Add a new button form to the first page that executes a menu
+                        // item.
+                        fieldInfo = toolkit.AddField(1, 3, "Print_BUTTON", 167, 750, 85, 25, "Helvetica", 10);
+                        fieldInfo.ButtonTextNormal = "Print Me";
+                        fieldInfo.MouseDownScript = "app.execMenuItem('Print');";
 
                         // Add A DropDown with list items
                         fieldInfo = toolkit.AddField(1, 6, "TEST_DROPDOWN", 72, 700, 85, 25, "Helvetica", 10);
