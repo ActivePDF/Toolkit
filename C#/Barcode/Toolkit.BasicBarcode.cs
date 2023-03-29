@@ -39,14 +39,13 @@ namespace ToolkitExamples
                     // http://documentation.activepdf.com/Toolkit/Toolkit_API/Content/4_b_barcode_appendix/barcode_format_codes.html
                     barcode.Symbology = 0;
 
-                    // Use PrintImage() to add the barcode to the new PDF
-                    toolkit.PrintImage(
-                        ImageFileName: barcode.AsString(),
+                    // Use PrintBarcode() to add the barcode to the new PDF
+                   toolkit.PrintBarcode(
+                        Barcode: barcode,
                         X: 72,
                         Y: 576,
                         Width: 360,
                         Height: 144,
-                        PersistRatio: true,
                         PageNumber: 0);
 
                     // Close the new file to complete PDF creation
