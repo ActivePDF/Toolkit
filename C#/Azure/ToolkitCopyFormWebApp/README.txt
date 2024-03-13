@@ -1,4 +1,4 @@
 
 To run Toolkit in the Azure environment you will need to make a couple of changes.
 1. You will need to upload the Toolkit native DLLs to the service. Add the installed DLLs from C:\Program Files\ActivePDF\Toolkit\bin\[x86,x64], depending on your platform, to you WebApp bin folder. In your solution exploer select "Show All Files" and expand the bin folder. Update the properties of the Toolkit DLLs you added to copy to the output directory "Copy if newer". This will upload them to the app service.
-2. You will need to add the Toolkit native DLLs to the environment path variable, follow the directions here, the applicaitonHost.xdt has been added to the solution. https://support.activepdf.com/hc/en-us/articles/360035940413-Azure-App-Services-and-Toolkit
+2. You will need to add the Toolkit native DLLs to the environment path variable, follow the directions here, the applicaitonHost.xdt has been added to the solution. https://support.activepdf.com/support/solutions/articles/35000174566-azure-app-services-and-toolkit
