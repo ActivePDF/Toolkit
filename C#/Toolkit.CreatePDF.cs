@@ -53,40 +53,40 @@ namespace ToolkitExamples
                 // Images can be added onto the new page with PrintImage,
                 // PrintJPEG and PrintTIFF
                 // Substitute your images here
-				toolkit.PrintImage(
-					ImageFileName: strPath + "butterfly.png",
-					X: 72.0f,
-					Y: 500.0f,
-					Width: 100.0f,
-					Height: 100.0f,
-					PersistRatio: true,
-					PageNumber: 0);
+		toolkit.PrintImage(
+			ImageFileName: strPath + "butterfly.png",
+			X: 72.0f,
+			Y: 500.0f,
+			Width: 100.0f,
+			Height: 100.0f,
+			PersistRatio: true,
+			PageNumber: 0);
 
-				toolkit.PrintImage(
-					ImageFileName: strPath + "logo_red.png",
-					X: 200.0f,
-					Y: 500.0f,
-					Width:100.0f,
-					Height: 100.0f,
-					PersistRatio: true,
-					PageNumber: 0);
+		toolkit.PrintImage(
+			ImageFileName: strPath + "logo_red.png",
+			X: 200.0f,
+			Y: 500.0f,
+			Width:100.0f,
+			Height: 100.0f,
+			PersistRatio: true,
+			PageNumber: 0);
 
-				toolkit.PrintJPEG(
-					FileName: strPath + "dice.jpg",
-					X: 72.0f,
-					Y: 400.0f,
-					Width: 100.0f,
-					Height: 100.0f,
-					PersistRatio: true,
-					PageNumber: 0);
+		toolkit.PrintJPEG(
+			FileName: strPath + "dice.jpg",
+			X: 72.0f,
+			Y: 400.0f,
+			Width: 100.0f,
+			Height: 100.0f,
+			PersistRatio: true,
+			PageNumber: 0);
 
-				toolkit.PrintTIFF(
-					FileName: strPath + "Toolkit.Input.tif",
-					X: 200.0f,
-					Y: 400.0f,
-					Width: 100.0f,
-					Height: 100.0f,
-					PersistRatio: true);
+		toolkit.PrintTIFF(
+			FileName: strPath + "Toolkit.Input.tif",
+			X: 200.0f,
+			Y: 400.0f,
+			Width: 100.0f,
+			Height: 100.0f,
+			PersistRatio: true);
 
                 // Close the new file to complete PDF creation
                 toolkit.CloseOutputFile();
