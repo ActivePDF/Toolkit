@@ -42,19 +42,51 @@ namespace ToolkitExamples
 
                 // Text can be added onto the new page with
                 // SetFont, PrintText and PrintMultilineText functions
-                toolkit.SetFont(FontName: "Helvetica", FontSize: 24);
-                toolkit.PrintText(X: 72.0f, Y: 720.0f, Text: toolkitVersion);
+				float font_size = 24.0f;
+                string font_name = "Times New Roman";
+                toolkit.SetFont(FontName: font_name, FontSize: font_size);
+				
+				float y = 720.0f;
+                toolkit.PrintText(X: 72.0f, Y: y, 1, $"Toolkit Version: {toolkitVersion}", font_name, font_size);
+                toolkit.PrintText(X: 72.0f, Y: y - 25, 1, $"by ActivePDF - An Apryse Company", font_name, font_size);
 
                 // Images can be added onto the new page with PrintImage,
                 // PrintJPEG and PrintTIFF
-                toolkit.PrintJPEG(
-                    FileName: strPath + "Toolkit.Input.jpg",
-                    X: 72.0f,
-                    Y: 300.0f,
-                    Width: 468.0f,
-                    Height: 400.0f,
-                    PersistRatio: true,
-                    PageNumber: 0);
+                // Substitute your images here
+				toolkit.PrintImage(
+					ImageFileName: strPath + "butterfly.png",
+					X: 72.0f,
+					Y: 500.0f,
+					Width: 100.0f,
+					Height: 100.0f,
+					PersistRatio: true,
+					PageNumber: 0);
+
+				toolkit.PrintImage(
+					ImageFileName: strPath + "logo_red.png",
+					X: 200.0f,
+					Y: 500.0f,
+					Width:100.0f,
+					Height: 100.0f,
+					PersistRatio: true,
+					PageNumber: 0);
+
+				toolkit.PrintJPEG(
+					FileName: strPath + "dice.jpg",
+					X: 72.0f,
+					Y: 400.0f,
+					Width: 100.0f,
+					Height: 100.0f,
+					PersistRatio: true,
+					PageNumber: 0);
+
+				toolkit.PrintTIFF(
+					FileName: strPath + "Toolkit.Input.tif",
+					X: 200.0f,
+					Y: 400.0f,
+					Width: 100.0f,
+					Height: 100.0f,
+					PersistRatio: true);
 
                 // Close the new file to complete PDF creation
                 toolkit.CloseOutputFile();
